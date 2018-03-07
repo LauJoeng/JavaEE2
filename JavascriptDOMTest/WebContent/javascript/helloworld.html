@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	//1.当整个HTML文档完全加载成功后出发window.onload事件
+	//事件触发时执行后面function里边的函数体
+	window.onload = function(){
+		//2.获取所有的button节点，并取得第一个元素
+		var btn = document.getElementsByTagName("button")[0];
+		//为button的onclick事件赋值。当点击button时，执行函数体
+		btn.onclick = function(){
+			//4.弹出helloworld
+			alert("helloworld");
+		}
+	}
+</script>
+</head>
+<body>
+	<button>ClickMe</button>
+</body>
+</html>

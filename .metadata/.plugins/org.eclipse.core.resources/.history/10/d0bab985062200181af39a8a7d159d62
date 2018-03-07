@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Untitled Document</title>
+		
+		<script type="text/javascript">
+			//关于节点的属性：nodeType，nodeName，nodeValue
+			//在文档中，任何一个结点都有这三个属性
+			//而id，name，value是具体结点的属性
+			window.onload = function(){
+				//1。元素节点的这3个属性
+				var bjNode = document.getElementById("bj");
+				alert(bjNode.nodeType);//元素节点
+				alert(bjNode.nodeName);
+				alert(bjNode.nodeType);
+				
+			}
+		</script>
+		
+	</head>
+	<body>
+		<p>你喜欢哪个城市?</p>
+		<ul id="city"><li id="bj" name="BeiJing">北京</li>
+			<li>上海</li>
+			<li>东京</li>
+			<li>首尔</li>
+		</ul>
+		
+		<br><br>
+		<p>你喜欢哪款单机游戏?</p>
+		<ul id="game">
+			<li id="rl">红警</li>
+			<li>实况</li>
+			<li>极品飞车</li>
+			<li>魔兽</li>
+		</ul>
+		
+		<br><br>
+		name:<input type="text" name="username" id="name" value="yang" />
+	</body>
+</html>	

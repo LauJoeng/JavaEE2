@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+	alert("1");
+	//window.onload事件在整个HTML文档被加载后触发执行
+	window.onload() = function(){
+		alert("3");
+	}
+</script>
+
+</head>
+<body>
+	<button>ClickMe</button>
+</body>
+</html>
+
+<script type="text/javascript">
+	alert("2");
+</script>

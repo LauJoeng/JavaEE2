@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Untitled Document</title>
+		
+		<script type="text/javascript">
+			//1.节点类型：元素节点、属性节点、文本节点
+			//通常情况下，操作属性节点直接通过 "元素节点 . 属性名"的方式来读写属性值，而不是获取属性节点
+			
+			//2.写js代码的位置
+			
+			//3.获取元素节点
+			//3.1根据id获取
+			//3.2根据标签名获取：该方法并非ducument，任何元素节点都可以调用该方法，以获取指定的子结点
+			//3.3根据 name 属性名获取,若HTML元素本身没有name属性，我们硬添加一个name属性，使用getElementByName(name)对于IE是不好用的
+			
+			//4.获取子结点
+			//4.1 childNodes属性：获取指定元素的所有子结点，但意义不大
+			//4.2 firstChild、lastChild属性
+			//4.3 使用元素节点的getElementByTagName方法
+			
+			//5 读写文本节点
+			//5.1文本节点一定是元素节点的子结点
+			//5.2 步骤：获取文本节点所在的元素节点  -->  利用firstChild获取文本节点   -->  利用节点的nodeValue属性来读写文本值
+			
+			//6。 节点的属性：所有节点都有的属性(按元素节点、属性节点、文本节点来说明)
+			//6.1 nodeType 1,2,3 只读属性
+			//6.2 nodeName：返回节点对应的名字，只读属性
+			//6.3 nodeValue
+			window.onload = function(){
+				
+			}
+		</script>
+		
+	</head>
+	<body>
+		<p>你喜欢哪个城市?</p>
+		<ul id="city"><li id="bj" name="BeiJing">北京</li>
+			<li>上海</li>
+			<li>东京</li>
+			<li>首尔</li>
+		</ul>
+		
+		<br><br>
+		<p>你喜欢哪款单机游戏?</p>
+		<ul id="game">
+			<li id="rl">红警</li>
+			<li>实况</li>
+			<li>极品飞车</li>
+			<li>魔兽</li>
+		</ul>
+		
+		<br><br>
+		name:
+			<input type="radio" name="gender" id="male" />
+			<input type="radio" name="gender" id="female" />
+			<br><br>
+			name:<input type="text" name="username" value="yang" />
+	</body>
+</html>	
