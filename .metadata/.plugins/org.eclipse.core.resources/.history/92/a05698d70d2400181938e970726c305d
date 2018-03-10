@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Untitled Document</title>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				//1，为 #province 添加onchange响应函数
+				document.getElementById("province").onchange = function(){
+					//2.加载 cities.xml文件
+				}
+			}
+		
+		</script>
+		
+	</head>
+	<body>
+		<select id="province">
+			<option value="">请选择...</option>
+			<option value="河北省">河北省</option>
+			<option value="辽宁省">辽宁省</option>
+			<option value="山东省">山东省</option>
+		</select>
+		
+		<select id="city"><option value="...">请选择...</option></select>
+	</body>
+</html>

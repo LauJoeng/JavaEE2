@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Untitled Document</title>
+		<script type="text/javascript">
+			
+			window.onload = function(){
+				//1，为 #province 添加onchange响应函数
+				document.getElementById("province").onchange = function(){
+					//1.1 把#city节点除第一个子结点外都移除
+					
+					//2.加载 cities.xml文件,得到代表给文档的document对象
+					var xmlDoc = parseXml("/JavascriptDOMTest/WebContent/javascript/ex6/cities.xml");
+					//3.在cities.xml文档中查找和选择的省份匹配的province节点
+					var provinces = xmlDoc.getElementsByTagName("province");
+					alert(provinces.length);
+					
+					var provinceVal = this.value;
+					alert(provinceVal);
+					//4.再得到province节点的所有子结点
+					
+					//5.遍历city节点，得到每一个city子结点的文本值
+					
+					//6.利用得到文本值创建option节点
+					//<optioncityName</option>
+					
+					//7.并把6创建的option节点添加为#city的子结点
+					
+				}
+				
+				//js 解析 xml 文档的函数, 只支持 ie
+				function parseXml(fileName){
+				    //IE 内核的浏览器
+				    if (window.ActiveXObject) {
+				        //创建 DOM 解析器
+				        var doc = new ActiveXObject("Microsoft.XMLDOM");
+				        doc.async = "false";
+				        //加载 XML 文档, 获取 XML 文档对象
+				        doc.load(fileName);
+				        return doc;
+				    }
+				}
+			}
+		
+		</script>
+		
+	</head>
+	<body>
+		<select id="province">
+			<option value="">请选择...</option>
+			<option value="河北省">河北省</option>
+			<option value="辽宁省">辽宁省</option>
+			<option value="山东省">山东省</option>
+		</select>
+		
+		<select id="city"><option value="...">请选择...</option></select>
+	</body>
+</html>
