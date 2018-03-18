@@ -70,34 +70,36 @@
 <script type="text/javascript" src="jquery-1.10.1.js"></script>
 <script type="text/javascript">
 
-  var $contents = $('#container>div')
-  // 给3个li加监听
-  /*$('#tab>li').click(function () { // 隐式遍历
-    //alert('----')
-    // 隐隐藏所有内容div
-    $contents.css('display', 'none')
-    // 显示对应的内容div
-    // 得到当前点击的li在兄弟中下标
-    var index = $(this).index()
-    // 找到对应的内容div, 并显示
-    $contents[index].style.display = 'block'
-    // $($contents[index]).css('display', 'block')
-  })*/
+  var $contents = $('#container>div');
 
-  var currIndex = 0 //当前显示的内容div的下标
-  $('#tab>li').click(function () { // 隐式遍历
-    //alert('----')
-    // 隐藏当前已经显示的内容div
-    $contents[currIndex].style.display = 'none'
-    // 显示对应的内容div
-      // 得到当前点击的li在兄弟中下标
-    var index = $(this).index()
-      // 找到对应的内容div, 并显示
-    $contents[index].style.display = 'block'
+  //给三个li加监听
+  /*
+  $('#tab>li').click(function () {//隐式遍历
+      //隐藏所有内容
+      $contents.css('display','none');
+      //显示对应的内容
+        //得到当前点击的li在兄弟中的下标
+      var index = $(this).index();
+      //找到对应的div,并显示
+      $contents[index].style.display = 'block';
+      // $($contents[index].css('display','block'));
+  });
+  */
 
-    // 更新下标
-    currIndex = index
-  })
+  var currentIndex = 0;//当前显示的内容div下标
+  $('#tab>li').click(function () {//隐式遍历
+      //隐藏当前已经显示内容的div
+      $contents[currentIndex].style.display = 'none';
+      //显示对应的内容
+      //得到当前点击的li在兄弟中的下标
+      var index = $(this).index();
+      //找到对应的div,并显示
+      $contents[index].style.display = 'block';
+      // $($contents[index].css('display','block'));
+
+      //更新下标
+      currentIndex = index;
+  });
 
 
 </script>
