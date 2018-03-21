@@ -6,29 +6,49 @@
 		<script type="text/javascript">
 			
 			window.onload = function(){
-				//1，为 #province 添加onchange响应函数
+				
+				//1. 为 #province 添加 onchange 响应函数
 				document.getElementById("province").onchange = function(){
-					//1.1 把#city节点除第一个子结点外都移除
 					
-					//2.加载 cities.xml文件,得到代表给文档的document对象
-					var xmlDoc = parseXml("/JavascriptDOMTest/WebContent/javascript/ex6/cities.xml");
-					//3.在cities.xml文档中查找和选择的省份匹配的province节点
-					var provinces = xmlDoc.getElementsByTagName("province");
-					alert(provinces.length);
+					//1.1 把 #city 节点除第一个子节点外都移除. 
+					var cityNode = document.getElementById("city");
+					var cityNodeOptions = cityNode.getElementsByTagName("option");
+					
+					var len = cityNodeOptions.length;
+					for(var i =1; i < len; i++){
+						cityNode.removeChild(cityNodeOptions[1]);
+					}
 					
 					var provinceVal = this.value;
-					alert(provinceVal);
+					if(provinceVal == ""){
+						return; 
+					}
 					
-					var provinceEles = xmlDoc.setSelectNodes("//province[@name='"+provinceVal+"']");
-					//4.再得到province节点的所有子结点
+					//2. 加载 cities.xml 文件. 得到代表给文档的 document 对象
+					var xmlDoc = parseXml("cities.xml");
 					
-					//5.遍历city节点，得到每一个city子结点的文本值
+					//3. 在 cities.xml 文档中查找和选择的省匹配的 province 节点.
 					
-					//6.利用得到文本值创建option节点
-					//<optioncityName</option>
+					//直接使用 XPath 技术查找 XML 文档中匹配的节点. 
+					var provinceEles = xmlDoc.selectNodes("//province[@name='" 
+					                               + provinceVal + "']")
+					                               
+					//4. 再得到 province 节点的所有的 city 子节点
+					var cityNodes = provinceEles[0].getElementsByTagName("city");
 					
-					//7.并把6创建的option节点添加为#city的子结点
-					
+					//5. 遍历 city 子节点, 得到每一个 city 子节点的文本值
+					for(var i = 0; i < cityNodes.length; i++){
+						//6. 利用得到的文本值创建 option 节点
+						//<option>cityName</option>
+						var cityText = cityNodes[i].firstChild.nodeValue;
+						var cityTextNode = document.createTextNode(cityText);
+						var optionNode = document.createElement("option");
+						optionNode.appendChild(cityTextNode);
+						
+						//7. 并把 6 创建的 option 节点添加为 #city 的子节点.
+						cityNode.appendChild(optionNode);
+					}
+
 				}
 				
 				//js 解析 xml 文档的函数, 只支持 ie
@@ -43,6 +63,7 @@
 				        return doc;
 				    }
 				}
+				
 			}
 		
 		</script>

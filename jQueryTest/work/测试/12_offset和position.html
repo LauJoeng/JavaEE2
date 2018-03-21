@@ -60,26 +60,33 @@
     设置 div2 相对于页面的左上角的位置
    */
   $('#btn1').click(function () {
-//    打印 div1 相对于页面左上角的位置
-    var offset = $('.div1').offset()
-    console.log(offset.left, offset.top) // 10 20
-//    打印 div2 相对于页面左上角的位置
-    offset = $('.div2').offset()
-    console.log(offset.left, offset.top) // 10 70
-//    打印 div1 相对于父元素左上角的位置
-    var position = $('.div1').position()
-    console.log(position.left, position.top) // 10 20
-//    打印 div2 相对于父元素左上角的位置
-    position = $('.div2').position()
-    console.log(position.left, position.top) // 0 50
-  })
+      //打印 div1 相对于页面左上角的位置
+      var offset = $('.div1').offset();
+      console.log(offset.top,offset.left);
 
+      //打印 div2 相对于页面左上角的位置
+      var offset = $('.div2').offset();
+      console.log(offset.top,offset.left);
+
+      //打印 div1 相对于父元素左上角的位置
+      var position = $('.div1').position();
+      console.log(position.left,position.top);
+
+      //    打印 div2 相对于父元素左上角的位置
+      var position = $('.div2').position();
+      console.log(position.left,position.top);
+  });
+
+  //2. 点击 btn2,设置 div2 相对于页面的左上角的位置
   $('#btn2').click(function () {
-    $('.div2').offset({
-      left: 50,
-      top: 100
-    })
-  })
+      $('.div2').offset({
+          left:50,
+          top: 100
+      });
+  });
+
+
+
 </script>
 </body>
 </html>
