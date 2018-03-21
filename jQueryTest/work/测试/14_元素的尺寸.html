@@ -32,14 +32,16 @@
 -->
 <script src="js/jquery-1.10.1.js" type="text/javascript"></script>
 <script>
-  var $div = $('div')
-  // 1. 内容尺寸
-  console.log($div.width(), $div.height())  // 100 150
-  // 2. 内部尺寸
-  console.log($div.innerWidth(), $div.innerHeight()) //120 170
-  // 3. 外部尺寸
-  console.log($div.outerWidth(), $div.outerHeight()) //140 190
-  console.log($div.outerWidth(true), $div.outerHeight(true)) //160 210
+  var $div = $('div');
+  //内容尺寸
+  console.log($div.width(),$div.height());//100 150
+
+  //内部尺寸
+  console.log($div.innerWidth(),$div.innerHeight());//120 170
+
+  //外部尺寸
+  console.log($div.outerWidth(),$div.outerHeight()); //140 190
+  console.log($div.outerWidth(true),$div.outerHeight(true));//160 210
 
 </script>
 </body>
