@@ -78,70 +78,69 @@
    6. 点击.inner区域, 外部点击监听不响应
    7. 点击链接, 如果当前时间是偶数不跳转
    */
+
   //1. 给.out绑定点击监听(用两种方法绑定)
-  /*$('.out').click(function () {
-   console.log('click out')
-   })*/
-  $('.out').on('click', function () {
-    console.log('on click out')
-  })
+  /*
+  $('.out').click(function () {
+      console.log('clicked out');
+  });
+  */
+  $('.out').on('click',function () {
+      console.log(' on clicked out');
+  });
 
   //2. 给.inner绑定鼠标移入和移出的事件监听(用3种方法绑定)
-  /*
-   $('.inner')
-   .mouseenter(function () { // 进入
-    console.log('进入')
-   })
-   .mouseleave(function () { // 离开
-   console.log('离开')
-   })
-   */
-  /*
-   $('.inner')
-   .on('mouseenter', function () {
-   console.log('进入2')
-   })
-   .on('mouseleave', function () {
-   console.log('离开2')
-   })
-   */
-  $('.inner').hover(function () {
-    console.log('进入3')
-  }, function () {
-    console.log('离开3')
+  /*第一种
+  $('.inner').mouseenter(function () {//鼠标进入
+      console.log('进入');
   })
+  .mouseleave(function () {//鼠标移开
+      console.log('离开');
+  });*/
 
+  /*第二种
+  $('.inner').on('mouseenter',function () {
+     console.log('进入');
+  }).on('mouseleave',function () {
+      console.log('离开');
+  });
+  */
+  //第三种
+  $('.inner').hover(function () {
+      console.log('移入');
+  },function () {
+      console.log('移除');
+  });
 
   //3. 点击btn1解除.inner上的所有事件监听
   $('#btn1').click(function () {
-    $('.inner').off()
-  })
+      $('.inner').off();
+  });
 
   //4. 点击btn2解除.inner上的mouseenter事件
   $('#btn2').click(function () {
-    $('.inner').off('mouseenter')
-  })
+      $('.inner').off('mouseenter');
+  });
 
   //5. 点击btn3得到事件坐标
-  $('#btn3').click(function (event) { // event事件对象
-    console.log(event.offsetX, event.offsetY) // 原点为事件元素的左上角
-    console.log(event.clientX, event.clientY) // 原点为窗口的左上角
-    console.log(event.pageX, event.pageY) // 原点为页面的左上角
-  })
+  $('#btn3').click(function (event) {
+      console.log(event.offsetX,event.offsetY);//原点为事件元素
+      console.log(event.clientX,event.clientY);//原点为窗口左上角
+      console.log(event.pageX,event.pageY);//原点为页面左上角
+  });
 
   //6. 点击.inner区域, 外部点击监听不响应
   $('.inner').click(function (event) {
-    console.log('click inner')
-    //停止事件冒泡
-    event.stopPropagation()
-  })
+      //停止事件冒泡
+      event.stopPropagation();
+  });
   
   //7. 点击链接, 如果当前时间是偶数不跳转
   $('#test4').click(function (event) {
-    if(Date.now()%2===0) {
-      event.preventDefault()
-    }
-  })
+      if(Date.now()%2==0){
+          event.preventDefault();
+      }
+  });
 </script>
 </body>
 </html>
