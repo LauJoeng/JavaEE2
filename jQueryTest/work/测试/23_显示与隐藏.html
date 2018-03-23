@@ -43,26 +43,27 @@
   3. 点击btn3, 慢慢隐藏
   4. 点击btn4, 切换显示/隐藏
    */
+
   var $div1 = $('.div1')
   //1. 点击btn1, 立即显示
   $('#btn1').click(function () {
-    $div1.show()
-  })
+      $div1.show();
+  });
 
   //2. 点击btn2, 慢慢显示
   $('#btn2').click(function () {
-    $div1.show(1000)
-  })
+      $div1.show(1000);
+  });
 
   //3. 点击btn3, 慢慢隐藏
   $('#btn3').click(function () {
-    $div1.hide(1000)
-  })
+      $div1.hide(1000);
+  });
 
   //4. 点击btn4, 切换显示/隐藏
   $('#btn4').click(function () {
-    $div1.toggle(1000)
-  })
+      $div1.toggle('slow');
+  });
 </script>
 </body>
 </html>

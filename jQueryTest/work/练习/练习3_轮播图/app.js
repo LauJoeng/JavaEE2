@@ -20,6 +20,9 @@ $(function () {
   var PAGE_WIDTH = 600;//一页的宽度
   var TIME = 400; //翻页的持续时间
   var ITEM_TIME = 20;//单元移动的间隔时间
+  var imgCount = $points.length;
+  var index = 0;//当前下标
+  var moving = false;//标识是否正在翻页，默认没有
 
    //1.点击向右(左)的图标，图片向右(左)翻页
     $next.click(function () {
@@ -32,11 +35,36 @@ $(function () {
         nextPage(false);
     });
 
+    //3. 每隔3s自动滑动到下一页
+    var intervalId = setInterval(function(){
+        nextPage(true);
+    },3000);
+
+    // 4. 当鼠标进入图片区域时, 自动切换停止, 当鼠标离开后,又开始自动切换
+    $container.hover(function () {
+        clearInterval(intervalId);
+    },function () {
+        intervalId = setInterval(function(){
+            nextPage(true);
+        },1000);
+    });
+
+
+    //6. 点击圆点图标切换到对应的页
+    $points.click(function () {
+        //目标页的下标
+        var targetIndex = $(this).index();
+        if(targetIndex !== index) {
+            nextPage(targetIndex);
+        }
+    });
+
     /**
      * 平滑翻页
      * param
      * true  上一页
      * false  下一页
+     * 数值:指定下标页
      */
     param
     function nextPage(next){
@@ -48,10 +76,20 @@ $(function () {
 
       启动循环定时器，不断更新$list的left，到达目标处停止定时器
        */
+
+      //如果正在翻页，直接结束
+      if(moving){
+          return;
+      }
+      moving = true;
       var offset = 0;
 
       //计算offset
-      offset = next ? -PAGE_WIDTH : PAGE_WIDTH;
+      if(typeof next === 'boolean'){
+          offset = next ? -PAGE_WIDTH : PAGE_WIDTH;
+      }else{
+          offset = -(next-index)*PAGE_WIDTH;
+      }
       //计算单元移动的偏移量
       var itemOffset = offset/(TIME/ITEM_TIME);
 
@@ -65,12 +103,58 @@ $(function () {
         var intervalId = setInterval(function () {
           //计算最新的currLeft
           currLeft+=itemOffset;
-          if(currLeft == targetLeft){//到达目标
+          if(currLeft === targetLeft){//到达目标
             //清除定时器
               clearInterval(intervalId);
+
+              //翻页停止
+              moving = false;
+
+              //如果到达了最右边的图片(1.jpg)，跳转到最左边的的二张图片
+              if(currLeft === -(imgCount+1)*PAGE_WIDTH){
+                  currLeft = -PAGE_WIDTH;
+              }else if(currLeft === 0){
+                  //如果到达了最左边的图片，跳转到最右边的的二张图片
+                  currLeft = -imgCount*PAGE_WIDTH;
+              }
           }
           //设置left
           $list.css('left',currLeft);
         },ITEM_TIME);
+
+        //更新圆点
+        updatePoints(next);
+    }
+
+    /**
+     * 更新原点
+     * @param next
+     */
+    function updatePoints(next){
+        //将当前index的<span>的class移除
+        var targetIndex = 0;
+        if(typeof next==='boolean'){
+            if(next){
+                targetIndex = index + 1;
+                if(targetIndex === imgCount){//此时看到的是1.jpg
+                    targetIndex = 0;
+                }
+            }else{
+                targetIndex = index - 1;
+                if(targetIndex === -1){//此时看到是5.jpg
+                    targetIndex = imgCount - 1;
+                }
+            }
+        }else{
+            targetIndex = next;
+        }
+
+        //计算出目标圆点的下标
+        $points.eq(index).removeClass('on');
+        //给目标圆点添加class='on'
+        $points.eq(targetIndex).addClass('on');
+
+        //将index更新为targetIndex
+        index = targetIndex;
     }
 });

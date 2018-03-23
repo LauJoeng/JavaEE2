@@ -46,23 +46,22 @@
    3. 点击btn3, 淡出/淡入切换，动画结束时提示“动画结束了”
    */
 
-  var $div1 = $('.div1')
-
+  var $div1 = $('.div1');
   $('#btn1').click(function () {
-    // $div1.fadeOut()
-    // $div1.fadeOut('slow')
-    $div1.fadeOut(1000, function () {
-      alert('动画完成了!!!')
-    })
-  })
+     // $div1.fadeOut();
+     // $div1.fadeOut('slow');
+      $div1.fadeOut('fast',function () {
+          alert('动画完成');
+      });
+  });
 
   $('#btn2').click(function () {
-    $div1.fadeIn()
-  })
+      $div1.fadeIn('slow');
+  });
 
   $('#btn3').click(function () {
-    $div1.fadeToggle()
-  })
+      $div1.fadeToggle('slow');
+  });
 
 
 </script>
