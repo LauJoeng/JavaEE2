@@ -49,21 +49,22 @@
      * unCheckAll() : 全不选
      * reverseCheck() : 全反选
    */
-  console.log($.min(3, 5), $.max(3, 5))
-  var string = '   my atguigu    '
-  console.log('-----' + $.leftTrim(string) + '-----')
-  console.log('-----' + $.rightTrim(string) + '-----')
 
-  var $items = $(':checkbox[name=items]')
+  console.log($.min(3,5),$.max(3,5));
+  var string = '   yang  yamg  ';
+  console.log('---'+$.leftTrim(string)+'---');
+
+  var $items = $(':checkbox[name=items]');
   $('#checkedAllBtn').click(function () {
-    $items.checkAll()
-  })
+      $items.checkAll();
+  });
   $('#checkedNoBtn').click(function () {
-    $items.unCheckAll()
-  })
+      $items.unCheckAll();
+  });
   $('#reverseCheckedBtn').click(function () {
-    $items.reverseCheck()
-  })
+      $items.reverseCheck();
+  });
+
 </script>
 </body>
 </html>

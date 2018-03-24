@@ -50,7 +50,50 @@ jQuery动画本质 : 在指定时间内不断改变元素样式值来实现的
     4. 停止动画
    */
 
-  var $div
+
+  // 1. 逐渐扩大
+  // 1). 宽/高都扩为200px
+  // 2). 宽先扩为200px, 高后扩为200px
+
+  var $div1 = $('.div1');
+  /*
+  $('#btn1').click(function () {
+      $div1.animate({
+          width:200,
+          height:200
+      },1000);
+  });*/
+  $('#btn1').click(function () {
+      $div1.animate({width:200}).animate({height:200});
+  });
+
+  // 2. 移动到指定位置
+  // 1).移动到(500, 100)处
+  // 2).移动到(100, 20)处
+  $('#btn2').click(function () {
+      /*
+      $div1.animate({
+          left:500,
+          top:100
+      },1000);//右下移动*/
+      $div1.animate({
+          left:100,
+          top:20
+      });
+  });
+  
+  $('#btn3').click(function () {
+      $div1.animate({
+          left:'+=100',
+          top:'+=50'
+      },3000);
+  });
+
+
+  $('#btn4').click(function () {
+      $div1.stop();
+  });
+
 
 </script>
 </body>

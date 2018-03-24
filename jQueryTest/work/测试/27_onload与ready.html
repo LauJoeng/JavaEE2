@@ -17,6 +17,8 @@
     * 等同于: $(function(){})
     * 页面加载完就回调(早)
     * 可以有多个监听回调
+
+    文档加载完，包括网络上的图片，而ready比较早
 -->
 <script type="text/javascript" src="js/jquery-1.10.1.js"></script>
 <script type="text/javascript">
@@ -29,29 +31,22 @@
    */
 
   // 1. 直接打印img的宽度，观察其值
-  console.log('直接', $('#logo').width())
-  
-  window.onload = function () {
-    console.log('onload', $('#logo').width())
-  }
-  window.onload = function () {
-    console.log('onload2', $('#logo').width())
-  }
-  
-  $(function () {
-    console.log('ready', $('#logo').width())
-  })
-  $(function () {
-    console.log('ready2', $('#logo').width())
-  })
-  
-  $('#logo').on('load', function () {
-    console.log('img load', $(this).width())
-  })
+  console.log('直接打印:',$('#logo').width());
 
-  /*$(document).ready(function () {
+  window.onload = function () {
+      console.log('onload:',$('#logo').width());
+  };
 
-  })*/
+  $(function () {
+      console.log('ready:',$('#logo').width());
+  });
+
+  $('#logo').on('load',function () {
+      console.log('img load:',$(this).width());
+  });
+
+
+
   
 </script>
 </body>

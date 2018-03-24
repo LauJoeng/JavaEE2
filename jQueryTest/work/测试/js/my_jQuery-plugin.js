@@ -11,38 +11,35 @@
  * reverseCheck() : 全反选
  */
 (function () {
+    //扩展$的方法
+    $.extend({
+        min:function (a,b) {
+            return a < b ? a : b
+        },
+      max:function (a,b) {
+          return a > b ? a : b
+      },
+      leftTrim:function (str) {
+          return str.replace(/^\s+/,'')
+      },
+      rightTrim:function (str) {
+          return str.replace(/\s+$/,'')
+      }
+    })
 
-  // 扩展$的方法
-  $.extend({
-    min: function (a, b) {
-      return a < b ? a : b
-    },
-    max: function (a, b) {
-      return a > b ? a : b
-    },
-    leftTrim: function (str) {
-      return str.replace(/^\s+/, '')
-    },
-    rightTrim: function (str) {
-      return str.replace(/\s+$/, '')
-    }
-  })
-
-  // 扩展jQuery对象的方法
-  $.fn.extend({
-    checkAll: function () {
-      this.prop('checked', true) // this是jQuery对象
-    },
-    unCheckAll: function () {
-      this.prop('checked', false)
-    },
-    reverseCheck: function () {
-      // this是jQuery对象
-      this.each(function () {
-        // this是dom元素
-        this.checked = !this.checked
-      })
-    }
-  })
-
+    //扩展jQuery对象的方法
+    $.fn.extend({
+        checkAll:function () {
+            this.prop('checked',true);
+        },
+        unCheckAll:function () {
+            this.prop('checked',false);
+        },
+        reverseCheck:function () {
+            //外面的this是jQuery对象，里面的jQuery对象是DOM元素
+            this.each(function () {
+                this.checked=!this.checked;
+            });
+        }
+    });
 })()

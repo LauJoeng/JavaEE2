@@ -117,12 +117,11 @@
 <script type="text/javascript" src="jquery-1.10.1.js"></script>
 <script type="text/javascript">
   $('#navigation>ul>li:has(ul)').hover(function () {
-    //动画展开
-    $(this).children('ul').stop(true).slideDown()
-  }, function () {
-    // 动画收缩
-    $(this).children('ul').stop(true).slideUp()
-  })
+      //展开
+      $(this).children('ul').stop().slideDown();
+  },function () {
+      $(this).children('ul').stop().slideUp();
+  });
 </script>
 </body>
 </html>
