@@ -42,24 +42,23 @@
   /*
   声明式验证: 程序员只需要声明各种验证规则, 可以自定义验证错误信息
    */
-
-  //对此表单开户验证
   $('#myForm').validate({
-    messages: {
-      username: {
-        required: '用户名是必须的',
-        minlength: '用户名至少为6位'
-      },
-      pwd1: {
-        required: '密码是必须的',
-        minlength: '密码至少为6位',
-        maxlength: '密码最多8位'
-      },
-      pwd2: {
-        equalTo: '必须与密码相同'
+      messages:{
+          username:{
+              required:'必须有用户名',
+              minlength:'用户名至少六位'
+          },
+          pwd1:{
+              required:'必须有密码',
+              minlength:'密码至少六位',
+              maxlength:'密码最多八位'
+          },
+          pwd2:{
+              equalTo:'必须与密码相同'
+          }
       }
-    }
-  })
+  });
+
 </script>
 </body>
 </html>

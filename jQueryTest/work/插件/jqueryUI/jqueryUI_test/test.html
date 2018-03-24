@@ -5,9 +5,10 @@
   <title>Title</title>
   <link rel="stylesheet" href="jquery-ui.css">
 </head>
+
 <body>
 
-<!-- Accordion: 手风琴-->
+<!-- Accordion: 手风琴 n  ; 可折叠的  adj-->
 <h2>1. Accordion: 手风琴</h2>
 <div id="accordion">
   <h3>First</h3>
@@ -32,50 +33,49 @@
     <li><a href="#tabs-2">Second</a></li>
     <li><a href="#tabs-3">Third</a></li>
   </ul>
-  <div id="tabs-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-  <div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
-  <div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+  <div id="tabs-1" style="background: #00ccff">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+  <div id="tabs-2" style="background: #3B5998">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
+  <div id="tabs-3" style="background: indianred">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
 </div>
 
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="jquery-ui.js"></script>
 <script type="text/javascript">
   // 1. Accordion: 手风琴
-  $('#accordion').accordion()
+  $('#accordion').accordion();
 
-  // 所有数据的数组
-  var dataSource = [
-    "ActionScript",
-    "AppleScript",
-    "Asp",
-    "BASIC",
-    "C",
-    "C++",
-    "Clojure",
-    "COBOL",
-    "ColdFusion",
-    "Erlang",
-    "Fortran",
-    "Groovy",
-    "Haskell",
-    "Java",
-    "JavaScript",
-    "Lisp",
-    "Perl",
-    "PHP",
-    "Python",
-    "Ruby",
-    "Scala",
-    "Scheme"
-  ]
-
-  // 2. Autocomplete: 自动搜索匹配
+  var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+  ];
   $( "#autocomplete" ).autocomplete({
-    source: dataSource  // 数据源
+      source: availableTags
   });
 
-  // 3. Tabs: 选项卡
-  $('#tabs').tabs()
+
+  $( "#tabs" ).tabs();
+
+
 
 </script>
 </body>
