@@ -21,6 +21,12 @@
  */
 $(function () {
   show_hide();
+  hoverSubMenu();
+  search();
+  share();
+  showAddress();
+  clickTabs();
+
   // 1. 鼠标移入显示,移出隐藏
   // 目标: 手机京东, 客户服务, 网站导航, 我的京东, 去购物车结算, 全部商品
   function show_hide() {
@@ -34,4 +40,70 @@ $(function () {
           $('#'+id).hide();
       });
   }
+
+    // 2. 鼠标移动切换二级导航菜单的切换显示和隐藏
+    function hoverSubMenu(){
+      $('#category_items>div').hover(function () {
+          $(this).children(':last').show();
+    },function () {
+        $(this).children(':last').hide();
+    })
+    }
+
+    // 3. 输入搜索关键字, 列表显示匹配的结果
+    function search() {
+        $('#txtSearch').on('keyup focus',function () {
+            //如果有文本才显示列表
+            var txt = this.value.trim();
+            if(txt){
+                $('#search_helper').show();
+            }
+        }).blur(function () {
+            $('#search_helper').hide();
+        });
+    }
+
+    // 4. 点击显示或者隐藏更多的分享图标
+    function share() {
+        var isOpen = false;//当前状态(初始为关闭)
+        var $shareMore = $('#shareMore');
+        var $parent = $shareMore.parent();
+        var $as = $shareMore.prevAll('a:lt(2)');
+        var $b = $shareMore.children();
+        $shareMore.click(function () {
+            if(isOpen){//去关闭
+                $parent.css('width',155);
+                $as.hide();
+                $b.removeClass('backword');
+            }else{//打开
+                $parent.css('width',200);
+                $as.show();
+                $b.addClass('backword');
+            }
+            isOpen = !isOpen;
+        });
+    }
+
+    // 5. 鼠标移入移出切换地址的显示隐藏
+    function showAddress() {
+      var $select = $('#store_select');
+        $select.hover(function () {
+            $(this).children(':gt(0)').show();
+        },function () {
+            $(this).children(':gt(0)').hide();
+        })
+        .children(':last').click(function () {
+            $select.children(':gt(0)').hide();
+        });
+    }
+
+    // 6. 点击切换地址tab
+    function clickTabs() {
+      var $store_tabs_li = $('#store_tabs>li');
+        $store_tabs_li.click(function () {
+            $store_tabs_li.removeClass('hover');
+            // $(this).addClass('hover');
+            this.className = 'hover';
+        });
+    }
 });
