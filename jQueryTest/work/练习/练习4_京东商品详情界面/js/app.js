@@ -30,6 +30,7 @@ $(function () {
   clickProductTabs();
   moveMiniImg();
   hoverMiniImg();
+  bigImg();
 
   // 1. 鼠标移入显示,移出隐藏
   // 目标: 手机京东, 客户服务, 网站导航, 我的京东, 去购物车结算, 全部商品
@@ -205,4 +206,82 @@ $(function () {
     }
 
     // 11. 当鼠标在中图上移动时, 显示对应大图的附近部分区域
+    function bigImg() {
+        var $mediumImg = $('#mediumImg');
+        var $mask = $('#mask');
+        var $maskTop = $('#maskTop');
+        var $largeImgContainer = $('#largeImgContainer');
+        var $loading = $('#loading');
+        var $largeImg = $('#largeImg');
+        var maskWidth = $mask.width();
+        var maskHeight = $mask.height();
+        var maskTopWidth = $maskTop.width();
+        var maskTopHeight = $maskTop.height();
+
+        $maskTop.hover(function () {
+            $mask.show();
+            //动态加载大图
+            var src = $mediumImg.attr('src').replace('-m.','-l.');
+            $largeImg.attr('src',src);
+            $largeImgContainer.show();
+            $largeImg.on('load',function () {
+                //大图加载完成
+
+                //得到大图的尺寸
+                var largeWidth = $largeImg.width();
+                var largeHeight = $largeImg.height();
+
+                //给largeImgContainers设置尺寸
+                $largeImgContainer.css({
+                    width:largeWidth/2,
+                    height:largeHeight/2
+                });
+
+                $largeImg.show();
+                $loading.hide();
+
+                $maskTop.mousemove(function (event) {
+                    //计算left/top
+                    var left = 0;
+                    var top = 0;
+                    var eventLeft = event.offsetX;
+                    var eventTop = event.offsetY;
+                    left = eventLeft - maskWidth/2;
+                    top = eventTop - maskHeight/2;
+                    //left在[0,maskTopWidth - maskWidth]
+                    if(left<0){
+                        left = 0;
+                    }else if(left>maskTopWidth-maskWidth){
+                        left = maskTopWidth-maskWidth;
+                    }
+                    //top在[0,maskTopHeight - maskHeight]
+                    if(top<0){
+                        top = 0;
+                    }else if(top>maskTopHeight-maskHeight){
+                        top = maskTopHeight-maskHeight;
+                    }
+                    //给mask重新定位
+                    $mask.css({
+                        left:left,
+                        top:top
+                    });
+
+                    /*移动大图*/
+                    //得到大图坐标
+                    left = -left * largeWidth / maskTopWidth;
+                    top = -top * largeHeight / maskTopHeight;
+                    //设置大图坐标
+                    $largeImg.css({
+                       left:left,
+                       top:top
+                    });
+                });
+            });
+        },function () {
+            $mask.hide();
+            $largeImgContainer.hide();
+            $largeImg.hide();
+        });
+    }
+
 });
