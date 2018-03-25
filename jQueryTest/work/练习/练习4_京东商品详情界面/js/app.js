@@ -26,6 +26,10 @@ $(function () {
   share();
   showAddress();
   clickTabs();
+  showMinCart();
+  clickProductTabs();
+  moveMiniImg();
+  hoverMiniImg();
 
   // 1. 鼠标移入显示,移出隐藏
   // 目标: 手机京东, 客户服务, 网站导航, 我的京东, 去购物车结算, 全部商品
@@ -106,4 +110,99 @@ $(function () {
             this.className = 'hover';
         });
     }
+
+    // 7. 鼠标移入移出切换显示迷你购物车
+    function showMinCart(){
+      $('#minicart').hover(function () {
+         this.className = 'minicart';
+         $(this).children(':last').show();
+      },function () {
+          this.className = '';
+          $(this).children(':last').hide();
+      });
+    }
+
+    // 8. 点击切换产品选项 (商品详情等显示出来)
+    function clickProductTabs(){
+      var $lis = $('#product_detail>ul>li');
+      var $contents = $('#product_detail>div:gt(0)');
+      $lis.click(function () {
+        $lis.removeClass('current');
+        this.className = 'current';
+        //隐藏所有的$contents
+        $contents.hide();
+        //显示当前contents
+        var index = $(this).index();
+        $contents.eq(index).show();
+      });
+    }
+
+    // 9. 点击向右/左, 移动当前展示商品的小图片
+    function moveMiniImg(){
+      var $as = $('#preview>h1>a');
+      var $backward = $as.first();
+      var $forward = $as.last();
+      var $ul = $('#icon_list');
+      var SHOW_COUNT = 5;
+      var imgCount = $ul.children('li').length;
+      var moveCount = 0;//移动的次数(向右为正，向左为负)
+      var liWidth = $ul.children(':first').width();
+      //初始化更新
+      if(imgCount>SHOW_COUNT){
+          // $forward[0].className = 'forward';
+          $forward.attr('class','forward');
+      }
+
+      $forward.click(function () {
+          //判断是否需要移动,如果不需要直接结束
+          if(moveCount === imgCount - SHOW_COUNT){
+              return;
+          }
+          moveCount++;
+          //更新向左的按钮
+          $backward.attr('class','backward');
+          //更新向右的按钮
+          if(moveCount === imgCount - SHOW_COUNT){
+              $forward.attr('class','forward_disabled');
+          }
+          //移动ul
+          $ul.css({
+              left:-moveCount*liWidth
+          })
+      });
+
+        $backward.click(function () {
+            //判断是否需要移动,如果不需要直接结束
+            if(moveCount === 0){
+                return;
+            }
+            moveCount--;
+            //更新向右的按钮
+            $forward.attr('class','forward');
+            //更新向左的按钮
+            if(moveCount === 0){
+                $backward.attr('class','backward_disabled');
+            }
+            //移动ul
+            $ul.css({
+                left:-moveCount*liWidth
+            })
+        });
+    }
+
+    // 10. 当鼠标悬停在某个小图上,在上方显示对应的中图
+    function hoverMiniImg() {
+        $('#icon_list>li').hover(function () {
+            var $img = $(this).children();
+            // this.children()[0].className = 'hoverThumb';
+            $img.addClass('hoveredThumb');
+            //显示对应的中图
+            var src = $img.attr('src').replace('.jpg','-m.jpg');
+            $('#mediumImg').attr('src',src);
+        },function () {
+            $(this).children().removeClass('hoveredThumb');
+        });
+    }
+
+    // 11. 当鼠标在中图上移动时, 显示对应大图的附近部分区域
 });
