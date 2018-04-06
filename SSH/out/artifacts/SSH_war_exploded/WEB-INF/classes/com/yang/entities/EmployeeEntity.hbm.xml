@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.yang.entities.EmployeeEntity" table="employee" schema="test">
+        <id name="id" type="java.lang.Integer">
+            <column name="id"/>
+            <generator class="increment"/>
+        </id>
+        <property name="lastName" column="last_name" type="java.lang.String"/>
+        <property name="email" column="email" type="java.lang.String"/>
+        <property name="birth" column="birth" type="java.util.Date"/>
+        <property name="createTime" column="create_time" type="java.util.Date"/>
+        <many-to-one name="department" class="com.yang.entities.DepartmentEntity">
+            <column name="dept_id"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
