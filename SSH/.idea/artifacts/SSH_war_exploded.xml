@@ -13,6 +13,8 @@
           <element id="library" level="project" name="mysql-connector" />
           <element id="library" level="project" name="Struts2" />
           <element id="library" level="project" name="commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="struts2-spring-plugin" />
+          <element id="library" level="project" name="AspectJ" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="SSH/web/Web" />

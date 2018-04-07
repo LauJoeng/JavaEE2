@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="AspectJ">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/AspectJ/aspectjrt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/AspectJ/aspectjtools.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/AspectJ/aspectjweaver.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/AspectJ/org.aspectj.matcher.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

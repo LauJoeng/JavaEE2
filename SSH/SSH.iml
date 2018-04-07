@@ -12,7 +12,8 @@
       </configuration>
       <facet type="Struts2" name="Struts 2">
         <configuration>
-          <fileset id="s2fileset" name="Default File Set " removed="false">
+          <fileset id="s2fileset2" name="My Fileset " removed="false">
+            <file>jar://$MODULE_DIR$/web/WEB-INF/lib/Struts2/struts2-core-2.5.16.jar!/struts-default.xml</file>
             <file>file://$MODULE_DIR$/src/struts.xml</file>
           </fileset>
           <propertiesKeys disabled="false" />
@@ -23,6 +24,7 @@
       <configuration>
         <fileset id="fileset" name="ApplicationContext" removed="false">
           <file>file://$MODULE_DIR$/src/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/applicationContext-beans.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -50,5 +52,7 @@
     <orderEntry type="library" name="mysql-connector" level="project" />
     <orderEntry type="library" name="Struts2" level="project" />
     <orderEntry type="library" name="commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="struts2-spring-plugin" level="project" />
+    <orderEntry type="library" name="AspectJ" level="project" />
   </component>
 </module>
