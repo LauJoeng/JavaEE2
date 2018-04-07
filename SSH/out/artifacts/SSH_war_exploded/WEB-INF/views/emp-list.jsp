@@ -24,6 +24,7 @@
                 <td>EMAIL</td>
                 <td>BIRTH</td>
                 <td>部门</td>
+                <td>DELETE</td>
             </tr>
             <s:iterator value="#request.employees">
                 <tr>
@@ -32,6 +33,7 @@
                     <td>${email}</td>
                     <td>${birth}</td>
                     <td>${department.departmentName}</td>
+                    <td><a href="emp-delete?id=${id}">Delete</a></td>
                 </tr>
             </s:iterator>
         </table>

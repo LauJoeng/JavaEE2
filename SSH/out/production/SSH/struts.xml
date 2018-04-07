@@ -8,6 +8,7 @@
     <package name="default" namespace="/" extends="struts-default">
         <action name="emp-*" class="employeeAction" method="{1}">
             <result name="list">/WEB-INF/views/emp-list.jsp</result>
+            <result name="success" type="redirect">/emp-list</result>
         </action>
     </package>
 </struts>

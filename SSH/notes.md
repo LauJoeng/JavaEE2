@@ -58,3 +58,5 @@ ii.在spring的配置文件中配置:数据源,SessionFactory,声明式事务
 ①打开懒加载:不推荐使用
 ②获取Employee时使用迫左外连接同时初始化其关联的Department对象
 ③使用openSessionInViewFilter
+
+2).删除员工信息：

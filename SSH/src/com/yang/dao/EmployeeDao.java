@@ -22,4 +22,10 @@ public class EmployeeDao {
         String hql = "FROM EmployeeEntity e LEFT OUTER JOIN FETCH e.department";
         return getSession().createQuery(hql).list();
     }
+
+    public void delete(Integer id){
+        System.out.println(id);
+        String hql = "DELETE FROM EmployeeEntity e WHERE e.id = ?0";
+        getSession().createQuery(hql).setParameter("0",id).executeUpdate();
+    }
 }

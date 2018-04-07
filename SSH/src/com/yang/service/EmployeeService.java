@@ -15,4 +15,8 @@ public class EmployeeService {
     public List<EmployeeEntity>getAll(){
         return employeeDao.getAll();
     }
+
+    public void delete(Integer id){
+        employeeDao.delete(id);
+    }
 }

@@ -16,15 +16,19 @@ public class EmployeeAction extends ActionSupport implements RequestAware {
     }
 
     public String list(){
-        if (request == null){
-            System.out.println("request is null");
-        }
-        else
-        {
-            System.out.println("request is not null");
-        }
         request.put("employees",employeeService.getAll());
         return "list";
+    }
+
+    private Integer id;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String delete(){
+        employeeService.delete(id);
+        return SUCCESS;
     }
 
     private Map<String,Object>request;
