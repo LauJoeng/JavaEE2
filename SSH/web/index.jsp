@@ -11,6 +11,8 @@
     <title>$Title$</title>
   </head>
   <body>
-   <a href="emp-list">list all employees</a>
+       <a href="emp-list">list all employees</a>
+       <br/><br/>
+       <a href="emp-input">Add new employee</a>
   </body>
 </html>

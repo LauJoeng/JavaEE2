@@ -7,11 +7,20 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="departmentDao" class="com.yang.dao.DepartmentDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
     <bean id="employeeService" class="com.yang.service.EmployeeService">
         <property name="employeeDao" ref="employeeDao"/>
     </bean>
 
+    <bean id="departmentService" class="com.yang.service.DepartmentService">
+        <property name="departmentDao" ref="departmentDao"/>
+    </bean>
+
     <bean id="employeeAction" class="com.yang.actions.EmployeeAction" scope="prototype">
         <property name="employeeService" ref="employeeService"/>
+        <property name="departmentService" ref="departmentService"/>
     </bean>
 </beans>

@@ -60,3 +60,15 @@ ii.在spring的配置文件中配置:数据源,SessionFactory,声明式事务
 ③使用openSessionInViewFilter
 
 2).删除员工信息：
+
+正常删除，返回值是redirect类型
+确定要删除吗? 的提示使用jQuery完成
+Ajax
+
+3).添加员工：
+
+①显示表单页面：需要先查寻所有的部门信息
+
+②使用Struts2的ModelDriven和Preparable拦截器
+
+③时间是一个字符串，需要转为一个Date类型对象

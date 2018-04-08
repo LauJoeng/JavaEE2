@@ -9,7 +9,7 @@ public class EmployeeEntity {
     private String lastName;
     private String email;
     private Date birth;
-    private Timestamp createTime;
+    private Date createTime;
     private DepartmentEntity department;
 
     public int getId() {
@@ -44,11 +44,11 @@ public class EmployeeEntity {
         this.birth = birth;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -76,5 +76,17 @@ public class EmployeeEntity {
 
     public void setDepartment(DepartmentEntity department) {
         this.department = department;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeEntity{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birth=" + birth +
+                ", createTime=" + createTime +
+                ", department.id=" + department.getId() +
+                '}';
     }
 }

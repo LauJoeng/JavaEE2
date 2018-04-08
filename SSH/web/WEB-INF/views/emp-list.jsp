@@ -10,6 +10,33 @@
 <html>
 <head>
     <title>Title</title>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //1.点击delete时，弹出确定要删除信息的对话框
+            $(".delete").click(function () {
+                var lastName = $(this).next(":input").val();
+                var flag = confirm("确定要删除"+lastName+"的信息吗?");
+                if(flag){
+                    //删除，使用Ajax的方式
+                    var $tr = $(this).parent().parent();
+                    var url = this.href;
+                    var args = {"time":new Date()};
+                    $.post(url,args,function (data) {
+                        //若data的返回值为1，则提示删除成功，且把当前行删除
+                        if (data === "1"){
+                            alert("删除成功！");
+                            $tr.remove();
+                        }else{
+                            //若data的返回值不是1，提示删除失败
+                            alert("删除失败!");
+                        }
+                    });
+                }
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
     <h4>Employee List Page</h4>
@@ -31,9 +58,15 @@
                     <td>${id}</td>
                     <td>${lastName}</td>
                     <td>${email}</td>
-                    <td>${birth}</td>
+                    <td>
+                        <s:date name="birth" format="yyyy-MM-dd"/>
+                    </td>
+                    <td>${createTime}</td>
                     <td>${department.departmentName}</td>
-                    <td><a href="emp-delete?id=${id}">Delete</a></td>
+                    <td>
+                        <a href="emp-delete?id=${id}" class="delete">Delete</a>
+                        <input type="hidden" value="${lastName}"><%--此处埋一个hidden，方便对话框获取员工姓名，虽然通过父结点子结点关系也可以找到lastName，但这样简便一些--%>
+                    </td>
                 </tr>
             </s:iterator>
         </table>
