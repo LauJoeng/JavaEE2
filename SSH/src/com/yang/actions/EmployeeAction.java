@@ -3,7 +3,6 @@ package com.yang.actions;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
-import com.yang.dao.EmployeeDao;
 import com.yang.entities.EmployeeEntity;
 import com.yang.service.DepartmentService;
 import com.yang.service.EmployeeService;
@@ -58,7 +57,7 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
             }
         }
         System.out.println(inputStream == null);
-        return "delete";
+        return "ajax-success";
     }
 
     public String input(){
@@ -89,8 +88,23 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
     public void prepare() throws Exception {
 
     }
-
     public void prepareSave(){
         model = new EmployeeEntity();
+    }
+
+    private String lastName;
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String validateLastName() throws UnsupportedEncodingException {
+        System.out.println("执行validateLastName");
+        if (employeeService.lastNameIsValid(lastName)){
+            inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+        }else{
+            inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+        }
+        return "ajax-success";
     }
 }

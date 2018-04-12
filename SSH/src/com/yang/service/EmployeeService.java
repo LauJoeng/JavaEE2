@@ -23,4 +23,8 @@ public class EmployeeService {
     public void saveOrUpdate(EmployeeEntity employeeEntity){
         employeeDao.saveOrUpdate(employeeEntity);
     }
+
+    public boolean lastNameIsValid(String lastName){
+        return employeeDao.getEmployeeByLastName(lastName) == null;
+    }
 }

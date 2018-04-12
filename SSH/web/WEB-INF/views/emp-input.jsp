@@ -10,6 +10,35 @@
 <html>
 <head>
     <title>Title</title>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(":input[name=lastName]").change(function () {
+                var val = $(this).val();
+                val = $.trim(val);
+                var $this = $(this);
+                if(val!==""){
+                    var url = "emp-validateLastName";
+                    var args = {"lastName":val,"time":new Date()};
+                    $.post(url,args,function (data) {
+                       if(data === 1){
+                           //可用
+                           $this.after("<font color='green'>LastName可用</font>");
+                       }else if(data === 0){
+                           //表示不可用
+                           $this.after("<font color='red'>LastName已存在</font>");
+                       }else{
+                           //传输错误
+                           alert("服务器错误");
+                       }
+                    });
+                }else{
+                    alert("lastName不能为空");
+                    this.focus();
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <h4>Employee Input Page</h4>

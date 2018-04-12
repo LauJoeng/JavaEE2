@@ -1,6 +1,7 @@
 package com.yang.dao;
 
 import com.yang.entities.EmployeeEntity;
+import org.hibernate.Query;
 
 import java.util.List;
 
@@ -17,5 +18,11 @@ public class EmployeeDao extends BaseDao{
 
     public void saveOrUpdate(EmployeeEntity employee){
         getSession().saveOrUpdate(employee);
+    }
+
+    public EmployeeEntity getEmployeeByLastName(String lastName){
+        String hql = "FROM EmployeeEntity e WHERE e.lastName = ?0";
+        Query query = getSession().createQuery(hql).setParameter("0",lastName);
+        return (EmployeeEntity) query.uniqueResult();
     }
 }
