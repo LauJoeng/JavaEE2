@@ -28,6 +28,36 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
         this.departmentService = departmentService;
     }
 
+    private String lastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String validateName() throws UnsupportedEncodingException {
+        if(employeeService.lastNameIsValid(lastName)){
+            inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+        }else{
+            inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+        }
+        return "ajax-success";
+    }
+
+    public String delete() throws UnsupportedEncodingException {
+        try {
+            employeeService.delete(id);
+            inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            }
+        }
+        System.out.println(inputStream == null);
+        return "ajax-success";
+    }
+
     public String list(){
         request.put("employees",employeeService.getAll());
         return "list";
@@ -44,25 +74,18 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
     public InputStream getInputStream() {
         return inputStream;
     }
-    public String delete(){
-        try {
-            employeeService.delete(id);
-            inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            try {
-                inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
-            } catch (UnsupportedEncodingException e1) {
-                e1.printStackTrace();
-            }
-        }
-        System.out.println(inputStream == null);
-        return "ajax-success";
-    }
+
+
 
     public String input(){
         request.put("departments",departmentService.getAll());
         return INPUT;
+    }
+
+    public void prepareInput(){
+        if (id != null){
+            model = employeeService.get(id);
+        }
     }
 
     public String save(){
@@ -92,19 +115,4 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
         model = new EmployeeEntity();
     }
 
-    private String lastName;
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String validateLastName() throws UnsupportedEncodingException {
-        System.out.println("执行validateLastName");
-        if (employeeService.lastNameIsValid(lastName)){
-            inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
-        }else{
-            inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
-        }
-        return "ajax-success";
-    }
 }

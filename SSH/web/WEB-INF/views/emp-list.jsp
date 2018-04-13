@@ -52,6 +52,7 @@
                 <td>BIRTH</td>
                 <td>部门</td>
                 <td>DELETE</td>
+                <td>EDIT</td>
             </tr>
             <s:iterator value="#request.employees">
                 <tr>
@@ -61,11 +62,13 @@
                     <td>
                         <s:date name="birth" format="yyyy-MM-dd"/>
                     </td>
-                    <td>${createTime}</td>
                     <td>${department.departmentName}</td>
                     <td>
                         <a href="emp-delete?id=${id}" class="delete">Delete</a>
                         <input type="hidden" value="${lastName}"><%--此处埋一个hidden，方便对话框获取员工姓名，虽然通过父结点子结点关系也可以找到lastName，但这样简便一些--%>
+                    </td>
+                    <td>
+                        <a href="emp-input?id=${id}">EDIT</a>
                     </td>
                 </tr>
             </s:iterator>

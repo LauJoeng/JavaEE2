@@ -18,18 +18,20 @@
                 val = $.trim(val);
                 var $this = $(this);
                 if(val!==""){
-                    var url = "emp-validateLastName";
+                    $this.nextAll("font").remove();
+                    var url = "emp-validateName";
                     var args = {"lastName":val,"time":new Date()};
                     $.post(url,args,function (data) {
-                       if(data === 1){
+                       if(data === "1"){
                            //可用
                            $this.after("<font color='green'>LastName可用</font>");
-                       }else if(data === 0){
+                       }else if(data === "0"){
                            //表示不可用
                            $this.after("<font color='red'>LastName已存在</font>");
                        }else{
                            //传输错误
                            alert("服务器错误");
+                           alert(data);
                        }
                     });
                 }else{
@@ -42,6 +44,7 @@
 </head>
 <body>
     <h4>Employee Input Page</h4>
+    <s:debug></s:debug>
     <s:form action="emp-save" method="POST">
         <s:textfield name="lastName" label="lastName"></s:textfield>
         <s:textfield name="email" label="email"></s:textfield>

@@ -25,4 +25,8 @@ public class EmployeeDao extends BaseDao{
         Query query = getSession().createQuery(hql).setParameter("0",lastName);
         return (EmployeeEntity) query.uniqueResult();
     }
+
+    public EmployeeEntity get(Integer id){
+        return (EmployeeEntity) getSession().get(EmployeeEntity.class,id);
+    }
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public class DepartmentService {
     private DepartmentDao departmentDao;
 
-    public void setDepartmentDao(DepartmentDao departmentDao) {
+    public void setDepartmentDao(DepartmentDao departmentDao)    {
         this.departmentDao = departmentDao;
     }
 
