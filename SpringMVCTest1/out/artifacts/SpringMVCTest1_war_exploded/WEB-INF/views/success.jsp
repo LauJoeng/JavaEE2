@@ -12,5 +12,10 @@
 </head>
 <body>
 <h4>this is success page</h4>
+time:${requestScope.time}
+
+<br/><br/>
+
+names:${requestScope.names}
 </body>
 </html>
