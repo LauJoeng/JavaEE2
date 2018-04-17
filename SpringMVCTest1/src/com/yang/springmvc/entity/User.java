@@ -1,11 +1,20 @@
 package com.yang.springmvc.entity;
 
 public class User {
+    private Integer id;
     private String username;
-    private String passowrd;
+    private String password;
     private String email;
     private int age;
     private Address address;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -15,12 +24,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassowrd() {
-        return passowrd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassowrd(String passowrd) {
-        this.passowrd = passowrd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -47,14 +56,32 @@ public class User {
         this.address = address;
     }
 
+    public User(String username, String passowrd, String email, int age) {
+        this.username = username;
+        this.password = passowrd;
+        this.email = email;
+        this.age = age;
+    }
+
+    public User() {
+    }
+
+    public User(Integer id, String username, String password, String email, int age) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
-                ", passowrd='" + passowrd + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
-                ", address=" + address +
                 '}';
     }
 }

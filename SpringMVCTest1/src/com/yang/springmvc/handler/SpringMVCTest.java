@@ -1,22 +1,17 @@
 package com.yang.springmvc.handler;
 
-import com.sun.org.apache.bcel.internal.generic.VariableLengthInstruction;
 import com.yang.springmvc.entity.User;
-import org.omg.DynamicAny._DynAnyFactoryStub;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.support.ContextExposingHttpServletRequest;
-import org.springframework.web.method.annotation.ModelAttributeMethodProcessor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.activation.FileDataSource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 
+//@SessionAttributes(value = {"user"},types = {String.class})
 @RequestMapping("/springmvc")
 @Controller
 public class SpringMVCTest {
@@ -201,6 +196,61 @@ public class SpringMVCTest {
     public String testMap(Map<String,Object>map){
         System.out.println(map.getClass().getName());
         map.put("names", Arrays.asList("tom","jerry","lucy","Mike"));
+        return SUCCESS;
+    }
+
+    /**
+     * @SessionAtrributes 除了可以通过属性名指定需要放到会话中的属性之外（实际上使用的是value属性值），
+     * 还可以通过模型属性的对象类型指定哪些模型属性需要放到会话中（实际上使用的是types属性值）
+     *
+     * 注意:该注解只能放在类的上面，而不能放在方法上面
+     * @param map
+     * @return
+     */
+    @RequestMapping("/testSessionAttributes")
+    public String testSessionAttributes(Map<String,Object>map){
+        User user = new User("Tom","123456","tom@123.com",13);
+        map.put("user",user);
+        map.put("school","peking");
+        return SUCCESS;
+    }
+
+    /**
+     * 由@ModelAtrribute 标记的方法，会在每个目标方法执行之前被SpringMVC调用
+     * @param id
+     * @param map
+     */
+    @ModelAttribute
+    public void getUser(@RequestParam(value = "id",required = false)Integer id,Map<String,Object> map){
+        System.out.println("ModelAttribute Method");
+        if (id != null){
+            //模拟从数据库中获取对象
+            User user = new User(1,"Tom","123456","tom@123.com",12);
+            System.out.println("从数据库中获取一个对象: "+user);
+            map.put("user",user);
+        }
+    }
+
+    /**
+     * 运行流程:
+     * 1.执行@ModelAttribute注解修饰的方法，从数据库中取出对象，把对象放入了Map中，键为：user
+     * 2.SpringMVC从Map中取出对象，并把表单的请求参数赋给User兑现对应属性
+     * 3.SpringMVC把上述对象传入目标方法的参数
+     *
+     * 注意：在@ModelAttribute修饰的方法中，放入到Map时的键需要和目标方法入参类型的第一个字母小写的字符串一致！
+     *
+     * 源码分析：
+     * 1.调用@ModelAttribute注解修饰的方法，实际上把@ModelAttribute方法中Map中的数据放在了implicitModel中
+     * 2.解析请求处理器目标参数，实际该目标参数来自于WebDataBinder对象的target属性
+     * 1).创建WebDataBinder对象:
+     * ①确定objectName属性：若传入的attrName属性值为""，则object为类名第一个字母小写
+     * 注意:attrName
+     * @param user
+     * @return
+     */
+    @RequestMapping("/testModelAttribute")
+    public String testModelAttribute(User user){
+        System.out.println("修改:"+user);
         return SUCCESS;
     }
 }

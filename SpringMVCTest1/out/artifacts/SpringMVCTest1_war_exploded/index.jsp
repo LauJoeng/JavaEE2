@@ -68,6 +68,7 @@
       province:<input type="text" name="address.province">
       <br/>
     <input type="submit" value="submit">
+  </form>
     <br/><br/>
     <a href="springmvc/testServletAPI">Test ServletAPI</a>
       <br/><br/>
@@ -75,6 +76,26 @@
 
       <br/><br/>
       <a href="/springmvc/testMap">testMap</a>
-  </form>
+
+      <br/><br/>
+      <a href="/springmvc/testSessionAttributes">testSessionAttributes</a>
+      <br/><br/><br/><br/>
+<hr/>
+      <%--
+         模拟修改操作
+         1.原始数据。1：Tom,123456,tom@123.com ,12
+         2.密码不能被修改
+         3.表单回显，模拟操作直接在表单写对应属性值
+       --%>
+        <form action="/springmvc/testModelAttribute" method="post">
+            <input type="hidden" name="id" value="1"/>
+            username:<<input type="text" name="username" value="Tom">
+            <br/>
+            email:<input type="text" name="email" value="tom@123.com"/>
+            <br/>
+            age:<input type="text" name="age" value="12"/>
+            <br/>
+            <input type="submit" value="submit"/>
+        </form>
   </body>
 </html>
