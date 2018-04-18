@@ -97,5 +97,10 @@
             <br/>
             <input type="submit" value="submit"/>
         </form>
+
+  <br/><br/><br/>
+  <a href="/springmvc/testViewAndViewResolver">testViewAndViewResolver</a>
+  <br/>
+  <br/><br/><br/>
   </body>
 </html>
