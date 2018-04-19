@@ -101,6 +101,10 @@
   <br/><br/><br/>
   <a href="/springmvc/testViewAndViewResolver">testViewAndViewResolver</a>
   <br/>
+  <a href="/springmvc/testView">testView</a>
+  <br/>
+  <a href="/springmvc/testRedirect">testRedirect</a>
+  <br/>
   <br/><br/><br/>
   </body>
 </html>

@@ -293,4 +293,16 @@ public class SpringMVCTest {
         System.out.println("testViewAndViewResolver");
         return SUCCESS;
     }
+
+    @RequestMapping("/testView")
+    public String testView(){
+        System.out.println("testView");
+        return "helloView";
+    }
+
+    @RequestMapping("/testRedirect")
+    public String testRedirect(){
+        System.out.println("testRedirect");
+        return "redirect:/index.jsp";
+    }
 }
