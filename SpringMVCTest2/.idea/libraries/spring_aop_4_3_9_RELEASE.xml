@@ -1,0 +1,28 @@
+<component name="libraryTable">
+  <library name="spring-aop-4.3.9.RELEASE">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-aop-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-aspects-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-beans-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-context-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-context-support-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-core-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-expression-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-instrument-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-instrument-tomcat-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-jdbc-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-jms-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-messaging-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-orm-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-oxm-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-test-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-tx-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-web-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-webmvc-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-webmvc-portlet-4.3.9.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/Spring/spring-websocket-4.3.9.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -2,12 +2,16 @@
   <artifact type="exploded-war" name="SpringMVCTest2:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/SpringMVCTest2_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="SpringMVCTest2/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="SpringMVCTest2" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="commons-logging-1.2" />
+          <element id="library" level="project" name="spring-aop-4.3.9.RELEASE" />
+        </element>
       </element>
+      <element id="javaee-facet-resources" facet="SpringMVCTest2/web/Web" />
     </root>
   </artifact>
 </component>
