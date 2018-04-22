@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class SpringMVCTest {
@@ -18,5 +22,12 @@ public class SpringMVCTest {
         System.out.println("save"+employee);
         employeeDao.save(employee);
         return "redirect:/emps";
+    }
+
+    @ResponseBody
+    @RequestMapping("/testJson")
+    public Collection<Employee> testJson(){
+        System.out.println("testJson");
+        return employeeDao.getAll();
     }
 }

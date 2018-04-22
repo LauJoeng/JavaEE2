@@ -15,6 +15,10 @@
       <configuration>
         <fileset id="fileset" name="Springmvc" removed="false">
           <file>file://$MODULE_DIR$/src/springmvc/springmvc.xml</file>
+          <file>file://$MODULE_DIR$/src/springmvc.xml</file>
+        </fileset>
+        <fileset id="fileset2" name="Springmvc (2)" removed="false">
+          <file>file://$MODULE_DIR$/src/springmvc.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -30,15 +34,6 @@
     <orderEntry type="library" name="spring-aop-4.3.9.RELEASE" level="project" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="classmate-1.0.0" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/src/resource" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/src/resource" recursive="false" />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="lib1" level="project" />
   </component>
 </module>
