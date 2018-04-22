@@ -18,8 +18,21 @@
         default-servlet-handler将在SpringMVC上下文中定义一个DefaultServletHttpRequestHandler，
         他会对进入DispatcherServlet的请求进行筛查，如果发现没有经过映射请求，就该请求交于WEB服务器默认的Servlet
         处理，如果不是静态资源的请求，才由DispatcherServlet继续处理
-
      -->
     <mvc:default-servlet-handler/>
-    <mvc:annotation-driven/>
+    <!--<mvc:annotation-driven conversion-service="ConversionServiceFactoryBean"/>-->
+    <mvc:annotation-driven />
+    <!--配置ConversionService-->
+    <bean id="conversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="employeeConverter"/>
+            </set>
+        </property>
+    </bean>
+    <!--配置国际化资源文件-->
+    <bean id="resourceBundleMessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="basename" value="i18n"/>
+    </bean>
 </beans>

@@ -29,5 +29,16 @@
     <orderEntry type="library" name="commons-logging-1.2" level="project" />
     <orderEntry type="library" name="spring-aop-4.3.9.RELEASE" level="project" />
     <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="classmate-1.0.0" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/src/resource" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/src/resource" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

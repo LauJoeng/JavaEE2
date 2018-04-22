@@ -1,11 +1,44 @@
 package com.yang.springmvc.crud.entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
+import javax.validation.constraints.Past;
+import java.util.Date;
+
 public class Employee {
     private Integer id;
+    @NotEmpty
     private String lastName;
+    @Email
     private String email;
     private String gender;
     private Department department;
+
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birth;
+
+    @NumberFormat(pattern = "#,###,###.#")
+    private Float salary;
+
+    public Float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Float salary) {
+        this.salary = salary;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
 
     public Employee(Integer id, String lastName, String email, String gender, Department department) {
         this.id = id;
@@ -66,6 +99,8 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", gender='" + gender + '\'' +
                 ", department=" + department +
+                ", birth=" + birth +
+                ", salary=" + salary +
                 '}';
     }
 }

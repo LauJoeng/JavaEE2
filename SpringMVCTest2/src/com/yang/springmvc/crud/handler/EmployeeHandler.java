@@ -1,12 +1,18 @@
 package com.yang.springmvc.crud.handler;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.yang.springmvc.crud.dao.DepartmentDao;
 import com.yang.springmvc.crud.dao.EmployeeDao;
 import com.yang.springmvc.crud.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -35,8 +41,17 @@ public class EmployeeHandler {
 
 
     @RequestMapping(value = "emp",method = RequestMethod.POST)
-    public String save(Employee employee){
-        System.out.println("save");
+    public String save(@Valid Employee employee, Errors bindingResult, Map<String,Object>map){
+        System.out.println("save:  "+employee);
+        if (bindingResult.getErrorCount()>0){
+            System.out.println("出错了！");
+            for (FieldError error :bindingResult.getFieldErrors()){
+                System.out.println(error.getField() + " : " + error.getDefaultMessage());
+            }
+            //若验证出错，则转向定制页面
+            map.put("departments",departmentDao.getDepartments());
+            return "input";
+        }
         employeeDao.save(employee);
         return "redirect:/emps";
     }
@@ -72,4 +87,9 @@ public class EmployeeHandler {
 
         return "redirect:/emps";
     }
+
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder){
+//        binder.setDisallowedFields("lastName");
+//    }
 }
