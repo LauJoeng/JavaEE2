@@ -35,4 +35,7 @@
         <property name="defaultEncoding" value="UTF-8" />
         <property name="basename" value="i18n"/>
     </bean>
+
+    <mvc:view-controller path="/i18n" view-name="i18n"/>
+    <mvc:view-controller path="/i18n2" view-name="i18n2"/>
 </beans>
