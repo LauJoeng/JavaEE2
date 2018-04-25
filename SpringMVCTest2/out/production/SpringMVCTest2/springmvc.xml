@@ -36,6 +36,27 @@
         <property name="basename" value="i18n"/>
     </bean>
 
-    <mvc:view-controller path="/i18n" view-name="i18n"/>
+    <!--    配置SessionLocalResolver-->
+    <!--    测试中坑，bean id必须要为localResolver，否则会报错,Spring在这里通过名字获取这个Resolver，可能是id，而不是
+    靠类型获取。可以自定义一个LocalResolver名字为SessionLocaleResolver也可
+
+    解决原文:n Spring MVC application, if you do not configure the Spring’s LocaleResolver,
+    it will use the default AcceptHeaderLocaleResolver, which does not allow to change the locale.
+    To solve it, try declare a SessionLocaleResolver bean in the Spring bean configuration file,
+    it should be suits in most cases.
+
+    
+    -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+    </bean>
+
+    <!--配置LocalChangeInterceptor-->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        </bean>
+    </mvc:interceptors>
+
+
+    <!--<mvc:view-controller path="/i18n" view-name="i18n"/>-->
     <mvc:view-controller path="/i18n2" view-name="i18n2"/>
 </beans>
