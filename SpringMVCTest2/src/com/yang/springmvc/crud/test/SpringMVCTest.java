@@ -92,22 +92,24 @@ public class SpringMVCTest {
      * 1.@ExceptionHandler方法中可以加入Exception入参类型参数，该参数即对应发生异常的对象
      * 2.@ExceptionHandler方法中不能传入Map，若希望把异常信心传到页面上，需要使用ModelAndView作为返回值
      * 3.@ExceptionHandler方法标记的异常有优先级的问题
+     * 4.@ExceptionHandler:如果在当前Handler中找不到@ExceptionHandler方法来解决当前方法的异常，则去@ControllorAdvice标记的
+     * 类中查找@ExceptionHandler标记的方法来处理异常
      * @param e
      * @return
      */
-    @ExceptionHandler({ArithmeticException.class})
-    public ModelAndView handleArithmeticException(Exception e){
-        System.out.println("出异常了 : "+e);
-        ModelAndView mv = new ModelAndView("error");
-        mv.addObject("exception",e);
-        return mv;
-    }
+//    @ExceptionHandler({ArithmeticException.class})
+//    public ModelAndView handleArithmeticException(Exception e){
+//        System.out.println("出异常了 : "+e);
+//        ModelAndView mv = new ModelAndView("error");
+//        mv.addObject("exception",e);
+//        return mv;
+//    }
 
-    @ExceptionHandler({RuntimeException.class})
-    public ModelAndView handleArithmeticException2(Exception e){
-        System.out.println("出异常了 : "+e);
-        ModelAndView mv = new ModelAndView("error");
-        mv.addObject("exception",e);
-        return mv;
-    }
+//    @ExceptionHandler({RuntimeException.class})
+//    public ModelAndView handleArithmeticException2(Exception e){
+//        System.out.println("出异常了 : "+e);
+//        ModelAndView mv = new ModelAndView("error");
+//        mv.addObject("exception",e);
+//        return mv;
+//    }
 }
