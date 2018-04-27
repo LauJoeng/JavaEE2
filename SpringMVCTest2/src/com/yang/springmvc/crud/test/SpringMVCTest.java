@@ -9,19 +9,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 public class SpringMVCTest {
@@ -76,5 +72,42 @@ public class SpringMVCTest {
         String val = messageSource.getMessage("i18n.user",null,locale);
         System.out.println(val);
         return "i18n";
+    }
+
+    @RequestMapping("/testFileUpload")
+    public String testFileUpload(@RequestParam("desc")String desc, @RequestParam("file")MultipartFile file) throws IOException {
+        System.out.println("desc: " + desc);
+        System.out.println("OriginFileName:  "+file.getOriginalFilename());
+        System.out.println("InputStream:"+file.getInputStream());
+        return "success";
+    }
+
+    @RequestMapping("/testExceptionHandlerExceptionResolver")
+    public String testExceptionHandlerExceptionResolver(@RequestParam("i")int i){
+        System.out.println("result:  "+(10/i));
+        return "success";
+    }
+
+    /**
+     * 1.@ExceptionHandler方法中可以加入Exception入参类型参数，该参数即对应发生异常的对象
+     * 2.@ExceptionHandler方法中不能传入Map，若希望把异常信心传到页面上，需要使用ModelAndView作为返回值
+     * 3.@ExceptionHandler方法标记的异常有优先级的问题
+     * @param e
+     * @return
+     */
+    @ExceptionHandler({ArithmeticException.class})
+    public ModelAndView handleArithmeticException(Exception e){
+        System.out.println("出异常了 : "+e);
+        ModelAndView mv = new ModelAndView("error");
+        mv.addObject("exception",e);
+        return mv;
+    }
+
+    @ExceptionHandler({RuntimeException.class})
+    public ModelAndView handleArithmeticException2(Exception e){
+        System.out.println("出异常了 : "+e);
+        ModelAndView mv = new ModelAndView("error");
+        mv.addObject("exception",e);
+        return mv;
     }
 }

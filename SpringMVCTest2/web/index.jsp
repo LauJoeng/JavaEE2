@@ -39,7 +39,7 @@
     <input type="submit" value="submit"/>
   </form>
   <br/><br/>
-  <a href="/testResponseEntity">testResponseEntity</a>
+  <a href="${pageContext.request.contextPath}/testResponseEntity">testResponseEntity</a>
 
   <%--
       关于国际化:
@@ -57,4 +57,13 @@
   <br/><br/>
   <a href="i18n">I18N Page</a>
   </body>
+  <br/><br/>
+  <form action="testFileUpload" method="post" enctype="multipart/form-data">
+    File:<input type="file" name="file"/>
+    Desc:<input type="text" name="desc"/>
+    <input type="submit" value="submit"/>
+  </form>
+
+  <br/><br/>
+  <a href="/testExceptionHandlerExceptionResolver?i=10">testExceptionHandlerExceptionResolver</a>
 </html>
