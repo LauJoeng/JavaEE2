@@ -66,4 +66,13 @@
 
   <br/><br/>
   <a href="/testExceptionHandlerExceptionResolver?i=10">testExceptionHandlerExceptionResolver</a>
+
+  <br/><br/>
+  <a href="/testResponseStatusExceptionResolver?i=10">testResponseStatusExceptionResolver</a>
+
+  <br/><br/>
+  <a href="/testDefaultHandlerExceptionResolver">testDefaultHandlerExceptionResolver</a>
+
+  <br/><br/>
+  <a href="/testSimpleMappingExceptionResolver?i=2">testSimpleMappingExceptionResolver</a>
 </html>

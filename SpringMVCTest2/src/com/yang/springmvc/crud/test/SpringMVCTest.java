@@ -112,4 +112,27 @@ public class SpringMVCTest {
 //        mv.addObject("exception",e);
 //        return mv;
 //    }
+
+    @ResponseStatus(reason = "test",value = HttpStatus.NOT_FOUND)
+    @RequestMapping("/testResponseStatusExceptionResolver")
+    public String testResponseStatusExceptionResolver(@RequestParam("i")int i){
+        if (i==11){
+            throw new UserNameNotMatchPasswordException();
+        }
+        System.out.println("正常执行");
+        return "success";
+    }
+
+    @RequestMapping(value = "/testDefaultHandlerExceptionResolver",method = RequestMethod.POST)
+    public String testDefaultHandlerExceptionResolver(){
+        System.out.println("testDefaultHandlerExceptionResolver");
+        return "success";
+    }
+
+    @RequestMapping("/testSimpleMappingExceptionResolver")
+    public String testSimpleMappingExceptionResolver(@RequestParam("i")int i){
+        String[] vals = new String[10];
+        System.out.println(vals[i]);
+        return "success";
+    }
 }

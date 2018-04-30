@@ -19,7 +19,7 @@
                 var $this = $(this);
                 if(val!==""){
                     $this.nextAll("font").remove();
-                    var url = "emp-validateName";
+                    var url = "${pageContext.request.contextPath}/emp-validateName";
                     var args = {"lastName":val,"time":new Date()};
                     $.post(url,args,function (data) {
                        if(data === "1"){
