@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="JPA1" transaction-type="RESOURCE_LOCAL">
+		
+		<!-- 配置使用什么ORM产品作为jpa的实现
+		1.实际上配置的是javax.persistence.spi.Persistence接口的实现类
+		2.若jpa项目中只有一个jpa的产品实现，则也可以不配置 -->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<!-- 添加持久化类 -->
+		<class>com.yang.jpa.helloworld.Customer</class>
+		
+		<properties>
+			<!-- 连接数据库的基本信息 -->
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql:///jpa"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value="1909227160"/>
+			
+			<!-- 配置JAP 实现产品的基本属性，配置hibernate的基本属性 -->
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+		</properties>
+	</persistence-unit>
+</persistence>
