@@ -9,6 +9,7 @@
 		
 		<!-- 添加持久化类 -->
 		<class>com.yang.jpa.helloworld.Customer</class>
+		<class>com.yang.jpa.helloworld.Order</class>
 		
 		<properties>
 			<!-- 连接数据库的基本信息 -->

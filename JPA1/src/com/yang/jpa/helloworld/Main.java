@@ -29,14 +29,16 @@ public class Main {
 				transaction.begin();
 				
 				//4.进行持久化操作
-				Customer customer = new Customer();
-				customer.setAge(12);
-				customer.setEmail("1909227160@qq.com");
-				customer.setLastName("Rachel");
-				customer.setBirth(new Date());
-				customer.setCreatedTime(new Date());
+//				Customer customer = new Customer();
+//				customer.setAge(12);
+//				customer.setEmail("1909227160@qq.com");
+//				customer.setLastName("Rachel");
+//				customer.setBirth(new Date());
+//				customer.setCreatedTime(new Date());
+//				
+//				entityManager.persist(customer);
 				
-				entityManager.persist(customer);
+			
 				
 				//5.提交事务
 				transaction.commit();

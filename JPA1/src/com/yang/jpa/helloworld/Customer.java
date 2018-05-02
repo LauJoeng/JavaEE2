@@ -95,6 +95,12 @@ public class Customer {
 	public String getInfo() {
 		return "lastName :" +lastName+",Email: "+email;
 	}
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", lastName=" + lastName + ", email=" + email + ", age=" + age + ", createdTime="
+				+ createdTime + ", birth=" + birth + "]";
+	}
+	
 	
 	
 }
