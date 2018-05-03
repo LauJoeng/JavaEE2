@@ -2,14 +2,14 @@ package com.yang.jpa.helloworld;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-
+@Table(name="orders")
 @Entity
 public class Order {
 	private Integer id;
@@ -17,7 +17,7 @@ public class Order {
 	
 	private Customer customer;
 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue
 	@Id
 	public Integer getId() {
 		return id;
@@ -39,8 +39,9 @@ public class Order {
 	//映射单项n-1关联关系
 	//使用@ManyToOne来映射多对一的关联关系
 	//使用@JoinColumn来映射外键
+	//可以使用@ManyToOne的fetch属性来修改默认的关联属性的加载策略
 	@JoinColumn(name="customer_id")
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	public Customer getCustomer() {
 		return customer;
 	}

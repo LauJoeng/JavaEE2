@@ -16,6 +16,15 @@ import org.junit.jupiter.api.Test;
 import com.yang.jpa.helloworld.Customer;
 import com.yang.jpa.helloworld.Order;
 
+
+
+
+/**     测试中大坑：数据库中表名不能使用关键字，比如：order，order，order，真他妈没想到order竟然会是关键字。如果是key，foreign什么的我都忍了                                **/
+
+
+
+
+
 class JPATest {
 	
 	private EntityManagerFactory entityManagerFactory;
@@ -57,15 +66,15 @@ class JPATest {
 	
 	//类似于hibernate的save方法
 	//与之不同之处在于：若对象有id，则不能执行insert操作，而会抛出异常
-	//@Test
+	@Test
 	public void testPersistence() {
 		init();
 		Customer customer = new Customer();
 		customer.setAge(14);
 		customer.setBirth(new Date());
 		customer.setCreatedTime(new Date());
-		customer.setEmail("1909227160@qq.com");
-		customer.setLastName("yang");
+		customer.setEmail("Monica@qq.com");
+		customer.setLastName("Monica");
 		entityManager.persist(customer);
 		destroy();
 	}
@@ -168,7 +177,7 @@ class JPATest {
 		customer.setEmail("1909227160@qq.com");
 		customer.setLastName("yang");
 		
-		customer.setId(4);
+		
 		
 		Customer customer2 = entityManager.find(Customer.class,4);
 		entityManager.merge(customer);
@@ -202,18 +211,148 @@ class JPATest {
 		destroy();
 	}
 	
-	@Test
+	/**
+	 * 保存多对一时，应该先保存一的一端，再保存多的一端，这样不会产生多余的sql语句
+	 */
+	/*@Test
 	public void testManyToOne() {
 		init();
-		Order o = new Order();
-		Customer customer = entityManager.find(Customer.class, 1);
-		o.setOrderName("test");
-		o.setCustomer(customer);
+		Customer customer = new Customer();
+		customer.setAge(13);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("1909227160@163.com");
+		customer.setLastName("Joey");
 		
+		Order order1 = new Order();
+		order1.setOrderName("o-J-1");
 		
-		entityManager.persist(o);
+		Order order2 = new Order();
+		order2.setOrderName("o-J-2");
+		
+		order1.setCustomer(customer);
+		order2.setCustomer(customer);
+		
+		//执行保存操作
+		entityManager.persist(customer);
+		entityManager.persist(order1);
+		entityManager.persist(order2);
+		destroy();
+	}*/
+	
+	/**
+	 * 默认情况下，使用左外连接的方式来获取 多 的一端对象和其关联的 一 的一端的对象
+	 * //可以使用@ManyToOne的fetch属性来修改默认的关联属性的加载策略
+	 */
+//	@Test
+//	public void testManyToOneFind() {
+//		init();
+//		Order order = entityManager.find(Order.class, 2);
+//		
+//		System.out.println(order.getOrderName());
+//		System.out.println(order.getCustomer().getLastName());
+//		destroy();
+//	}
+	
+	//不能直接删除 一 的一端，因为有外键约束。
+	@Test
+	public void testManyToOneRemove() {
+		init();
+//		Order order = entityManager.find(Order.class, 2);
+//		entityManager.remove(2);;
+		Customer customer = entityManager.find(Customer.class, 2);
+		entityManager.remove(customer);
 		destroy();
 	}
+	
+	/*@Test
+	public void testManyToOneUpdate() {
+		init(); 
+		Order o = entityManager.find(Order.class, 2);
+		o.getCustomer().setLastName("Chandler");
+		destroy();
+	}*/
+	
+	
+	//若是双向 1-n 的关联关系，执行保存时
+	//若先保存 n 的一端，再保存 1 的一端，会多出 2*n 条update语句
+	//反过来则会多出 n 条
+	//在进行双向1-n关联关系使，建议使用n的一方来维护关联关系，而1的一方不维护关联关系，这样会有效减少sql语句
+	//注意：若在1的一端的@OneToMany中使用mappedBy属性，则@OneToMany端就不能使用@JoinColumn属性了
+	
+	/**
+	 * 单向 1-n 关联关系执行保存时，一定会多出update语句
+	 *因为 n 的一端在插入时不会同时插入外键列
+	 */
+	@Test
+	public void testOneToManyPersist() {
+		init();
+		
+		init();
+		Customer customer = new Customer();
+		customer.setAge(13);
+		customer.setBirth(new Date());
+		customer.setCreatedTime(new Date());
+		customer.setEmail("Ross@gmail.com");
+		customer.setLastName("Ross");
+		
+		Order order1 = new Order();
+		order1.setOrderName("o-P-1");
+		
+		Order order2 = new Order();
+		order2.setOrderName("o-P-2");
+		
+		//建立关联关系
+		customer.getOrders().add(order1);
+		customer.getOrders().add(order2);
+		
+		order1.setCustomer(customer);
+		order2.setCustomer(customer);
+		
+		//执行保存操作
+		entityManager.persist(customer);
+		entityManager.persist(order1);
+		entityManager.persist(order2);
+		
+		destroy();
+	}
+	
+	
+	//默认对关联的多的一方使用懒加载策略
+	@Test
+	public void testOneToManyFind() {
+		init();
+		
+		Customer c = entityManager.find(Customer.class, 5);
+		System.out.println(c.getLastName());
+		
+		System.out.println(c.getOrders().size());
+		
+		destroy();
+	}
+	
+	//默认情况下，若删除1的一端，则会把关联的n的一端外键置为空,然后进行删除
+	//可以修改@OneToMany的cascade属性来修改默认的删除策略
+	@Test
+	public void testOneToManyRemove() {
+		init();
+		
+		Customer c = entityManager.find(Customer.class, 5);
+		entityManager.remove(c);
+		destroy();
+		
+	}
+	
+	@Test
+	public void testOneToManyUpdate() {
+		init();
+		
+		Customer c = entityManager.find(Customer.class, 2);
+		c.getOrders().iterator().next().setOrderName("O-XX-2");
+		destroy();
+		
+	}
+	
 	
 	
 	

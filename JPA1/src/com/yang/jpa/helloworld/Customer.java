@@ -1,13 +1,19 @@
 package com.yang.jpa.helloworld;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -25,6 +31,21 @@ public class Customer {
 	private Date createdTime;
 	private Date birth;
 	
+	private Set<Order> orders = new HashSet<>();
+	
+	
+	//映射单向 1-n的关联关系
+	//使用@OneToMany来映射一对多关联关系
+	//使用@JoinColumn来映射外键名称
+	//可以修改@OneToMany的cascade属性来修改默认的删除策略
+//	@JoinColumn(name="customer_id")
+	@OneToMany(fetch=FetchType.EAGER,cascade= {CascadeType.REMOVE},mappedBy="customer")
+	public Set<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
 	//@Temporal注解用于对时间的精确
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedTime() {
