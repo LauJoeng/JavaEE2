@@ -3,11 +3,13 @@ package com.yang.jpa.helloworld.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,6 +21,8 @@ import com.yang.jpa.helloworld.Department;
 import com.yang.jpa.helloworld.Item;
 import com.yang.jpa.helloworld.Manager;
 import com.yang.jpa.helloworld.Order;
+
+
 
 
 
@@ -458,6 +462,59 @@ class JPATest {
 	}
 	
 	
+	
+	@Test
+	public void helloJPQL() {
+		init();
+		String jpql = "FROM Customer c WHERE c.age > ?";
+		Query query = entityManager.createQuery(jpql);
+		
+		query.setParameter(1, 1);//占位符索引从1开始
+		List<Customer>customers = query.getResultList();
+		System.out.println(customers.size());
+		destroy();
+	}
+	
+	
+	//默认情况下，若只查询部分属性，则返回Object[] 类型结果，或者Object[] 类型的List
+	//也可以在实体类中创建对应的构造器，然后再kpql语句中利用对应的构造器返回实体类List
+	@Test
+	public void helloPartProperties() {
+		init();
+//		String jpql = "SELECT c.lastName,c.age FROM Customer c WHERE c.id > ?";
+		String jpql = "SELECT new Customer(c.lastName,c.age) FROM Customer c WHERE c.id > ?";
+		List result = entityManager.createQuery(jpql).setParameter(1, 1).getResultList();
+		System.out.println(result);
+		destroy();
+	}
+	
+	//createNamedQuery适用于实体类前使用@NamedQuery标记的查询语句
+	@Test
+	public void testNamedQuery() {
+		init();
+		
+		Query query = entityManager.createNamedQuery("testNamedQuery").setParameter(1, 2);
+		
+		Customer customer = (Customer) query.getSingleResult();
+		System.out.println(customer);
+		
+		destroy();
+	}
+	
+	
+	//createNativeQuery使用与本地sql
+	@Test
+	public void testNativeQuery() {
+		init();
+		
+		String sql = "select age from customer where id = ?";
+		Query query = entityManager.createNativeQuery(sql).setParameter(1, 3);
+		
+		Object result = query.getSingleResult();
+		System.out.println(result);
+		
+		destroy();
+	}
 	
 	
 	@After

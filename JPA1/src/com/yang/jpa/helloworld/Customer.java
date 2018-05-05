@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -22,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 //@Table(name="JPA_CUSTOMERS")//不加这个表示类名即为表名
+@NamedQuery(name="testNamedQuery",query="SELECT c From Customer c WHERE c.id = ?")
 @Cacheable(true)
 @Entity
 public class Customer {
@@ -35,7 +37,30 @@ public class Customer {
 	
 	private Set<Order> orders = new HashSet<>();
 	
+	public Customer(String lastName, int age) {
+		this.lastName = lastName;
+		this.age = age;
+	}
 	
+	
+	public Customer() {
+		super();
+	}
+
+	public Customer(Integer id, String lastName, String email, int age, Date createdTime, Date birth,
+			Set<Order> orders) {
+		super();
+		this.id = id;
+		this.lastName = lastName;
+		this.email = email;
+		this.age = age;
+		this.createdTime = createdTime;
+		this.birth = birth;
+		this.orders = orders;
+	}
+
+
+
 	//映射单向 1-n的关联关系
 	//使用@OneToMany来映射一对多关联关系
 	//使用@JoinColumn来映射外键名称
