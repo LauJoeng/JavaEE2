@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 //@Table(name="JPA_CUSTOMERS")//不加这个表示类名即为表名
+@Cacheable(true)
 @Entity
 public class Customer {
 	private Integer id;
@@ -39,7 +41,7 @@ public class Customer {
 	//使用@JoinColumn来映射外键名称
 	//可以修改@OneToMany的cascade属性来修改默认的删除策略
 //	@JoinColumn(name="customer_id")
-	@OneToMany(fetch=FetchType.EAGER,cascade= {CascadeType.REMOVE},mappedBy="customer")
+	@OneToMany(fetch=FetchType.LAZY,cascade= {CascadeType.REMOVE},mappedBy="customer")
 	public Set<Order> getOrders() {
 		return orders;
 	}

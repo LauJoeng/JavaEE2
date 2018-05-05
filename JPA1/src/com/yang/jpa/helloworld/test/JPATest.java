@@ -13,7 +13,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
+import com.yang.jpa.helloworld.Category;
 import com.yang.jpa.helloworld.Customer;
+import com.yang.jpa.helloworld.Department;
+import com.yang.jpa.helloworld.Item;
+import com.yang.jpa.helloworld.Manager;
 import com.yang.jpa.helloworld.Order;
 
 
@@ -351,6 +355,106 @@ class JPATest {
 		c.getOrders().iterator().next().setOrderName("O-XX-2");
 		destroy();
 		
+	}
+	
+	
+	//双向一对一关联关系，建议先保存不维护关联关系的一方，即没有外键的一方，这样可以减少sql语句的执行
+	@Test
+	public void testOneToOne() {
+		init();
+		Manager manager = new Manager();
+		manager.setName("m-aa");
+		
+		Department department = new Department();
+		department.setDeptName("d-aa");
+		
+		//关联关系
+		manager.setDepartment(department);
+		department.setManager(manager);
+		
+		//执行保存
+		entityManager.persist(manager);
+		entityManager.persist(department);
+		destroy();
+		
+	}
+	
+	
+	//默认情况下:1.若维护关联关系的一方，则会通过左外连接获取其关联的的对象
+	//但可以通过@OneToOne的fetch属性来修改加载策略
+	@Test
+	public void testOneToOneFind() {
+		init();
+		Department department = entityManager.find(Department.class, 1);
+		System.out.println(department.getDeptName());
+		System.out.println(department.getManager().getClass().getName());
+		destroy();
+	}
+	
+	//同样的，获取不维护关联关系的一方，也会通过左外连接获取关联的对象
+	//通过fetch修改加载策略也依然会如此。
+	@Test
+	public void testOneToOneFind2() {
+		init();
+		Manager m = entityManager.find(Manager.class,1);
+		System.out.println(m.getName());
+		System.out.println(m.getDepartment().getDeptName());
+		destroy();
+	}
+	
+	
+	@Test
+	public void testManyToMany() {
+		init();
+		Item i1 = new Item();
+		i1.setName("i1");
+		
+		Item i2 = new Item();
+		i2.setName("i2");
+		
+		Category c1 = new Category();
+		c1.setName("c1");
+		
+		Category c2= new Category();
+		c2.setName("c2");
+		
+		i1.getCategories().add(c1);
+		i1.getCategories().add(c2);
+		i2.getCategories().add(c2);
+		i2.getCategories().add(c1);
+		
+		c1.getItems().add(i1);
+		c1.getItems().add(i2);
+		c2.getItems().add(i1);
+		c2.getItems().add(i2);
+		
+		entityManager.persist(i1);
+		entityManager.persist(i2);
+		entityManager.persist(c1);
+		entityManager.persist(c2);
+		destroy();
+	}
+	
+	
+	//对于关联的集合对象，默认使用懒加载策略
+	@Test
+	public void testManyToManyFind() {
+		init();
+		Item item = entityManager.find(Item.class, 1);
+		System.out.println(item.getName());
+		System.out.println(item.getCategories().size());
+		destroy();
+	}
+	
+	
+	@Test
+	public void testSecondLevelCache() {
+		init();
+		Customer customer1= entityManager.find(Customer.class, 2);
+		destroy();
+		init();
+		Customer customer2 = entityManager.find(Customer.class, 2);
+		destroy();
 	}
 	
 	

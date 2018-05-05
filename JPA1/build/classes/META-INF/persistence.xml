@@ -10,6 +10,10 @@
 		<!-- 添加持久化类 -->
 		<class>com.yang.jpa.helloworld.Customer</class>
 		<class>com.yang.jpa.helloworld.Order</class>
+		<class>com.yang.jpa.helloworld.Manager</class>
+		<class>com.yang.jpa.helloworld.Department</class>
+		<class>com.yang.jpa.helloworld.Item</class>
+		<class>com.yang.jpa.helloworld.Category</class>
 		
 		<properties>
 			<!-- 连接数据库的基本信息 -->
