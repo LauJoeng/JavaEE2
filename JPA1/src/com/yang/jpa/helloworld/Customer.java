@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 //@Table(name="JPA_CUSTOMERS")//不加这个表示类名即为表名
-@NamedQuery(name="testNamedQuery",query="SELECT c From Customer c WHERE c.id = ?")
+//@NamedQuery(name="testNamedQuery",query="SELECT c From Customer c WHERE c.id = ?")
 @Cacheable(true)
 @Entity
 public class Customer {

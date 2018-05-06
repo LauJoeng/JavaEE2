@@ -10,7 +10,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.QueryHint;
 
+import org.hibernate.ejb.QueryHints;
+import org.hibernate.jpa.internal.EntityManagerMessageLogger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -513,6 +516,119 @@ class JPATest {
 		Object result = query.getSingleResult();
 		System.out.println(result);
 		
+		destroy();
+	}
+	
+	
+	//使用hibernate的查询缓存。
+	@Test
+	public void testQueryCache() {
+		init();
+		
+		String jpql = "FROM Customer c WHERE c.age > ?";
+		
+	
+		Query query = entityManager.createQuery(jpql).setHint(QueryHints.HINT_CACHEABLE, true);
+		
+		query.setParameter(1, 1);//占位符索引从1开始
+		List<Customer>customers = query.getResultList();
+		System.out.println(customers.size());
+		
+		query = entityManager.createQuery(jpql).setHint(QueryHints.HINT_CACHEABLE, true);
+		
+		query.setParameter(1, 1);//占位符索引从1开始
+		customers = query.getResultList();
+		System.out.println(customers.size());
+		destroy();
+	}
+	
+	
+	@Test
+	public void testQueryOrderBy() {
+		init();
+		
+		String jpql = "FROM Customer c WHERE c.age > ? ORDER BY c.age DESC";
+		Query query = entityManager.createQuery(jpql);
+		
+		query.setParameter(1, 1);//占位符索引从1开始
+		List<Customer>customers = query.getResultList();
+		System.out.println(customers.size());
+	
+		
+		destroy();
+	}
+	
+	//查询Order数量大于2的那些Customer
+	@Test
+	public void testQueryGroupBy() {
+		init();
+		
+		String jpql = "select  o.customer FROM  Order o GROUP  BY o.customer HAVING count(o.id) > 2 ";
+		Query query = entityManager.createQuery(jpql);
+		
+		List<Customer>customers = query.getResultList();
+		System.out.println(customers.size());
+	
+		
+		destroy();
+	}
+	
+	
+	//jpql的关联查询同HQL的关联查询
+	@Test
+	public void testLeftOuterJoinFetch() {
+		init();
+		
+		String jpql = "FROM Customer c LEFT OUTER JOIN FETCH c.orders WHERE c.id = ?";
+		Customer customer = (Customer) entityManager.createQuery(jpql).setParameter(1, 6).getSingleResult();
+		System.out.println(customer.getLastName());
+		
+		System.out.println(customer.getOrders().size());
+		
+//		List<Object[]>result = entityManager.createQuery(jpql).setParameter(1, 6).getResultList();
+//		System.out.println(result);
+	
+		
+		destroy();
+	}
+	
+	
+	
+	@Test
+	public void testSubQuery() {
+		init();
+		
+		//查询所有Customer的lastName为Ross的Order
+		String jpql = "SELECT o FROM Order o WHERE o.customer IN (SELECT c FROM Customer c WHERE c.lastName = ?)";
+	
+		Query query = entityManager.createQuery(jpql).setParameter(1, "Ross");
+		List<Order>orders = query.getResultList();
+		System.out.println(orders.size());
+		destroy();
+	}
+	
+	
+	//使用jpql内建的一些函数.
+	@Test
+	public void testJPQLFuntion() {
+		init();
+		
+		String jpql = "SELECT upper(c.email) FROM Customer c";//全部大写
+		List<String>emails = entityManager.createQuery(jpql).getResultList();
+		System.out.println(emails);
+		destroy();
+	}
+	
+	
+	//可以使用jpql完成update 和 delete 操作
+	@Test
+	public void testExecuteUpdate() {
+		init();
+		
+		String jpql = "UPDATE Customer c SET c.lastName = ? WHERE c.id = ?";
+		Query query = entityManager.createQuery(jpql).setParameter(1, "Joey").setParameter(2, 2);
+		
+		query.executeUpdate();
 		destroy();
 	}
 	
