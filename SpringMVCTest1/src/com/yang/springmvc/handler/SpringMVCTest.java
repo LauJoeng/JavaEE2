@@ -239,7 +239,7 @@ public class SpringMVCTest {
     /**
      * 运行流程:
      * 1.执行@ModelAttribute注解修饰的方法，从数据库中取出对象，把对象放入了Map中，键为：user
-     * 2.SpringMVC从Map中取出对象，并把表单的请求参数赋给User兑现对应属性
+     * 2.SpringMVC从Map中取出对象，并把表单的请求参数赋给User对象对应属性
      * 3.SpringMVC把上述对象传入目标方法的参数
      *
      * 注意：在@ModelAttribute修饰的方法中，放入到Map时的键需要和目标方法入参类型的第一个字母小写的字符串一致！
