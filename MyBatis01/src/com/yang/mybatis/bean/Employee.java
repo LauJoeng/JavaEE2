@@ -1,5 +1,8 @@
 package com.yang.mybatis.bean;
 
+import org.apache.ibatis.type.Alias;
+
+//@Alias("emp")
 public class Employee {
     private Integer id;
     private String lastName;
@@ -36,5 +39,15 @@ public class Employee {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.mybatis.dao.EmployeeMapper">
+    <!--
+        namespace:命名空间,若想将接口和配置文件进行绑定，需要将namespace指定为接口的全类名
+        id:唯一标识,绑定接口后可以用方法名绑定sql语句
+        resultType:返回值类型
+        #{id}从传递过来的参数取出id值
+    -->
+    <select id="getEmployeeById" resultType="employee" databaseId="mysql">
+        select * from tbl_employee where id = #{id}
+    </select>
+    
+</mapper>

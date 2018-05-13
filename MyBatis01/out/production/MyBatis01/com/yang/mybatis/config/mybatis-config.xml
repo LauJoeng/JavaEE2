@@ -1,18 +1,73 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <!--
+    1.mybatis可以使用properties来引入外部properties配置文件的内容
+    resource:引入类路径下的资源
+    url:引入网络或者磁盘路径下的资源
+    -->
+    <properties resource="com/yang/mybatis/config/dbconfig.properties"/>
+
+
+    <!--
+    2.settings包含很多重要的设置项
+    -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>  <!--启用驼峰命名-->
+    </settings>
+
+    <!--
+    3.typeAliases:别名处理器，可以为java类型起别名
+    -->
+    <typeAliases>
+        <!--<typeAlias type="com.yang.mybatis.bean.Employee" alias="employee"/>--> <!--若不指定alias，则别名默认为类名小写-->
+        <!--批量其别名-->
+        <package name="com.yang.mybatis.bean"/>
+        <!--批量起别名的情况下，使用@Alisas注解为某个类型指定新的别名-->
+    </typeAliases>
+
     <environments default="development">
+        <!--可以配置多个环境,default指定使用那种环境-->
+        <environment id="test">
+            <transactionManager type="JDBC"/><!--配置事务管理器，JDBC代表直接使用jdbc的事务管理器MANAGED代表使用-->
+            <dataSource type="POOLED"><!--使用连接池技术获取，可以取UNPOOLED,JNDI和自定义数据源-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
         <environment id="development">
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/test2"/>
-                <property name="username" value="root"/>
-                <property name="password" value="1909227160"/>
+            <transactionManager type="JDBC"/><!--配置事务管理器，JDBC代表直接使用jdbc的事务管理器MANAGED代表使用-->
+            <dataSource type="POOLED"><!--使用连接池技术获取，可以取UNPOOLED,JNDI和自定义数据源-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
+
+
+    <!--databaseIdProvider :支持多数据库厂商
+           type="DB_VENDOR" VendorDatabaseIdProvider作用就是得到数据库厂商的标识，mybatis会根据标识执行相对应的sql语句
+    -->
+    <!--<databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+        <property name="SQL Server" value="sqlserver"/>
+    </databaseIdProvider>-->
+
+
+    <!--将我们写好的sql映射文件注册到全局配置文件中-->
+    <!-- 除了可以用resource引用类路径下的文件外，还可以用url饮用网络上和磁盘上的文件
+        class可以直接注册接口，但必须存在sql映射文件，并且映射文件必须与接口在同一目录下，还可以没有sql映射文件，
+        所有sql都是利用注解完成
+    -->
     <mappers>
-        <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+        <mapper resource="com/yang/mybatis/config/mappers/EmployeeMapper.xml"/>
+        <mapper class="com.yang.mybatis.config.mappers.EmployeeMapperAnnotation"/>
     </mappers>
+
 </configuration>
