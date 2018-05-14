@@ -4,6 +4,7 @@ package com.yang.mybatis.test;
 import com.yang.mybatis.bean.Employee;
 import com.yang.mybatis.config.mappers.EmployeeMapperAnnotation;
 import com.yang.mybatis.dao.EmployeeMapper;
+import jdk.nashorn.internal.runtime.FindProperty;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -77,6 +78,32 @@ public class MyBatisTest {
             EmployeeMapperAnnotation mapper = sqlSession.getMapper(EmployeeMapperAnnotation.class);
             Employee employee = mapper.getEmployeeById(1);
             System.out.println(employee);
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    /**
+     * 测试增删改
+     * 1.mybatis允许增删改直接定义以下类型的返回值
+     *      Integer，Long，Boolean void
+     */
+    @Test
+    public void test03(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        try {
+            EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+            Employee employee = new Employee(null,"jerry","jerry@163.com","1");
+            //增
+            //mapper.addEmployee(employee);
+
+            //改
+//            mapper.updateEmp(employee);
+
+            //删
+            mapper.deleteEmpById(2);
+            sqlSession.commit();
         }finally {
             sqlSession.close();
         }

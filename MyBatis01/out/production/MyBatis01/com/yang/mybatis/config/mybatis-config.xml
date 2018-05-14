@@ -68,6 +68,9 @@
     <mappers>
         <mapper resource="com/yang/mybatis/config/mappers/EmployeeMapper.xml"/>
         <mapper class="com.yang.mybatis.config.mappers.EmployeeMapperAnnotation"/>
+
+        <!--批量注册-->
+        <!--<package name="com.yang.mybatis.config.mappers"/>-->
     </mappers>
 
 </configuration>
