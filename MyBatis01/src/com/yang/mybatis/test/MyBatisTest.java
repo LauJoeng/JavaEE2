@@ -63,7 +63,7 @@ public class MyBatisTest {
         try {
             //会为接口自动创建一个代理对象，代理对象去执行增删改查
             EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
-            Employee employee = employeeMapper.getEmployeeById(1);
+            Employee employee = employeeMapper.getEmployeeById(206);
             System.out.println(employeeMapper.getClass());
             System.out.println(employee);
         } finally {
@@ -87,6 +87,8 @@ public class MyBatisTest {
      * 测试增删改
      * 1.mybatis允许增删改直接定义以下类型的返回值
      *      Integer，Long，Boolean void
+     * 2.sqlSessionFactory.openSession() ---> 手动提交
+     *   sqlSessionFactory.openSession(true)  --->自动提交
      */
     @Test
     public void test03(){
