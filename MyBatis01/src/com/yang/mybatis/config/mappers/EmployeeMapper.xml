@@ -7,12 +7,16 @@
         resultType:返回值类型
         #{id}从传递过来的参数取出id值
     -->
-    <!--<select id="getEmployeeById" resultType="employee">-->
-        <!--select * from tbl_employee where id = #{id}-->
-    <!--</select>-->
+    <select id="getEmployeeById" resultType="employee">
+        select * from tbl_employee where id = #{id}
+    </select>
 
-    <select id="getEmployeeById" resultType="employee" >
+    <!--<select id="getEmployeeById" resultType="employee" >
         select employee_id id,last_name lastName,email  from employees where employee_id = #{id}
+    </select>-->
+
+    <select id="getEmpByMap" resultType="employee">
+        select * from tbl_employee where id = #{id} and last_name=#{lastName}
     </select>
 
 
@@ -41,8 +45,11 @@
             /*编写查询主键的sql语句*/
             select employee_seq.nextval from dual;
         </selectKey>
+       /* insert into employees(employee_id,last_name,email)
+        values(#{id},#{lastName},#{email})*/
+        /*或者*/
         insert into employees(employee_id,last_name,email)
-        values(#{id},#{lastName},#{email})
+        values(employee_seq.nextval,#{lastName},#{email})
     </insert>
 
     <!--void updateEmp(Employee employee);-->

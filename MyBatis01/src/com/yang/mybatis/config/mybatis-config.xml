@@ -27,7 +27,7 @@
         <!--批量起别名的情况下，使用@Alisas注解为某个类型指定新的别名-->
     </typeAliases>
 
-    <environments default="oracle">
+    <environments default="mysql">
         <!--可以配置多个环境,default指定使用那种环境-->
         <environment id="oracle">
             <transactionManager type="JDBC"/><!--配置事务管理器，JDBC代表直接使用jdbc的事务管理器MANAGED代表使用-->

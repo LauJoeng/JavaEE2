@@ -13,6 +13,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 1.SqlSession代表和数据库的一次会话，使用完必须关闭
@@ -63,7 +65,11 @@ public class MyBatisTest {
         try {
             //会为接口自动创建一个代理对象，代理对象去执行增删改查
             EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
-            Employee employee = employeeMapper.getEmployeeById(206);
+//            Employee employee = employeeMapper.getEmployeeById(1);
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",1);
+            map.put("lastName","tom");
+            Employee employee = employeeMapper.getEmpByMap(map);
             System.out.println(employeeMapper.getClass());
             System.out.println(employee);
         } finally {
