@@ -3,6 +3,7 @@ package com.yang.mybatis.test;
 
 import com.yang.mybatis.bean.Employee;
 import com.yang.mybatis.config.mappers.EmployeeMapperAnnotation;
+import com.yang.mybatis.config.mappers.EmployeeMapperPlus;
 import com.yang.mybatis.dao.EmployeeMapper;
 import jdk.nashorn.internal.runtime.FindProperty;
 import org.apache.ibatis.io.Resources;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,12 +68,24 @@ public class MyBatisTest {
             //会为接口自动创建一个代理对象，代理对象去执行增删改查
             EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
 //            Employee employee = employeeMapper.getEmployeeById(1);
-            Map<String,Object> map = new HashMap<>();
+
+            /*Map<String,Object> map = new HashMap<>();
             map.put("id",1);
             map.put("lastName","tom");
             Employee employee = employeeMapper.getEmpByMap(map);
             System.out.println(employeeMapper.getClass());
-            System.out.println(employee);
+            System.out.println(employee);*/
+
+            List<Employee> employees = employeeMapper.getEmpsByLastNameLike("%e%");
+            for(Employee  employee:employees){
+                System.out.println(employee);
+            }
+
+            Map<String,Object> map = employeeMapper.getEmplByIdReturnMap(1);
+            System.out.println(map);
+            System.out.println("------------------------------------------------");
+            Map<Integer,Employee> emp = employeeMapper.getEmployeeByLastNameReturnMap("%e%");
+            System.out.println(emp);
         } finally {
             sqlSession.close();
         }
@@ -116,4 +130,19 @@ public class MyBatisTest {
             sqlSession.close();
         }
     }
+
+
+    @Test
+    public void test04(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+
+        try {
+            EmployeeMapperPlus mapperPlus = sqlSession.getMapper(EmployeeMapperPlus.class);
+            Employee employee = mapperPlus.getEmpById(1);
+            System.out.println(employee);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
 }

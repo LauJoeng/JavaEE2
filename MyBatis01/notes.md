@@ -54,3 +54,10 @@ public Object getNamedParams(Object[] args) {
 <br/>#{} 可以取出map中的值或pojo对象的属性值
 <br/>${} 与上面相同
 <br/>区别:#{}是以预编译的方式，将参数设置到sql语句中:PrepareStatement，而${}将取出的值直接拼接在sql语句中，大多数情况使用第一种，当排序，或分组参数时会用第二种
+
+-#{}的一些更丰富的用法
+ 规定参数的一些规则
+ javaType、jdbcType、mode(存储过程)、numericScale
+ 
+ jdbcType通产需要在某种特定的情况下被设置:
+ 在数据为null的时候，有些数据库可能不能识别mybatis对null的默认处理，比如Oracle

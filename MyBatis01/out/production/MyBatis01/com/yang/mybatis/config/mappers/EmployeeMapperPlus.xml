@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.mybatis.config.mappers.EmployeeMapperPlus">
+
+    <!--自定义javaBean的封装规则-->
+    <resultMap id="MyEmp" type="com.yang.mybatis.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+        <!--如果其他列不指定则会自动封装，但推荐只要写就把全部映射规则都写上-->
+    </resultMap>
+
+
+    <!--resultMap:自定义结果集映射规则-->
+    <select id="getEmpById" resultMap="MyEmp" >
+        select * from tbl_employee where id=#{id}
+    </select>
+</mapper>

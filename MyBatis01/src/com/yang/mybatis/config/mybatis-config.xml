@@ -13,8 +13,8 @@
     <!--
     2.settings包含很多重要的设置项
     -->
-    <settings>
-        <setting name="mapUnderscoreToCamelCase" value="true"/>  <!--启用驼峰命名-->
+   <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>  <!-- 启用驼峰命名;-->
     </settings>
 
     <!--
@@ -68,7 +68,7 @@
     <mappers>
         <mapper resource="com/yang/mybatis/config/mappers/EmployeeMapper.xml"/>
         <mapper class="com.yang.mybatis.config.mappers.EmployeeMapperAnnotation"/>
-
+        <mapper resource="com/yang/mybatis/config/mappers/EmployeeMapperPlus.xml"/>
         <!--批量注册-->
         <!--<package name="com.yang.mybatis.config.mappers"/>-->
     </mappers>
