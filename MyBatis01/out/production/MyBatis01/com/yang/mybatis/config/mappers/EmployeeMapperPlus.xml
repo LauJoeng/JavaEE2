@@ -16,4 +16,40 @@
     <select id="getEmpById" resultMap="MyEmp" >
         select * from tbl_employee where id=#{id}
     </select>
+
+    <!--场景:
+        查询Employee的同时查询员工对应的部门，Employee===Department
+    -->
+
+    <!--联合查询，级联属性封装结果集-->
+    <resultMap id="MyEmpPlus" type="com.yang.mybatis.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <result column="did" property="dept.id"/>
+        <result column="dept_name" property="dept.deptName"/>
+    </resultMap>
+
+
+    <resultMap id="MyEmpPlus2" type="com.yang.mybatis.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <!--可以指定联合的Javabean对象
+            property指定联合哪个属性时联合对象
+            javaType指定属性对象的类型(不能省略)
+        -->
+        <association property="dept" javaType="com.yang.mybatis.bean.Department">
+            <id column="did" property="id"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+    
+    <select id="getEmpAndDept" resultMap="MyEmpPlus2">
+        select e.id id,e.last_name last_name,e.gender gender,e.email email,e.d_id d_id,d.id did,d.dept_name dept_name
+        from tbl_employee e,tbl_dept d where e.d_id  = d.id and e.id = #{id};
+    </select>
+
 </mapper>

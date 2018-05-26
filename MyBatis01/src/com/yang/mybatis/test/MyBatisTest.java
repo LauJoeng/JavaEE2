@@ -138,8 +138,10 @@ public class MyBatisTest {
 
         try {
             EmployeeMapperPlus mapperPlus = sqlSession.getMapper(EmployeeMapperPlus.class);
-            Employee employee = mapperPlus.getEmpById(1);
+//            Employee employee = mapperPlus.getEmpById(1);
+            Employee employee = mapperPlus.getEmpAndDept(1);
             System.out.println(employee);
+            System.out.println(employee.getDept());
         } finally {
             sqlSession.close();
         }

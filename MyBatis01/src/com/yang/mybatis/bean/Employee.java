@@ -8,6 +8,15 @@ public class Employee {
     private String lastName;
     private String email;
     private String gender;
+    private Department dept;
+
+    public Department getDept() {
+        return dept;
+    }
+
+    public void setDept(Department dept) {
+        this.dept = dept;
+    }
 
     public Employee() {
     }
