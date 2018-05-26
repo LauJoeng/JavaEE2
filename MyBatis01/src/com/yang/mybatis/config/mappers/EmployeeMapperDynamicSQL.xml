@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.mybatis.dao.EmployeeMapperDynamicSQL">
+    <!--查询员工，要求携带了哪个字段就带上这个字段的值-->
+    <select id="getEmpsByConditionIF" resultType="com.yang.mybatis.bean.Employee">
+        select * from tbl_employee
+        <where>
+            <if test="id!=null">
+                id=#{id}
+            </if>
+            <if test="lastName!=null and lastName!=&quot;&quot;">
+                and last_name like #{lastName}
+            </if>
+            <if test="email!=null and email.trim!=''">
+                and email = #{email}
+            </if>
+            /*会自动转换*/
+            <if test="gender==0 or gender == 1">
+                and gender = #{gender}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="getEmpsByConditionTrim" resultType="com.yang.mybatis.bean.Employee">
+        select * from tbl_employee
+        /*prefix"" 前缀，trim标签中整个字体拼串后的结果，prefix给拼串后的整个字符串加一个前缀*/
+        /*prefixOverrides 前缀覆盖，去掉整个字符串前面多余的字符*/
+        /*suffix  后缀  给整个字符串后加一个后缀 suffixOverrides  后缀覆盖*/
+        <trim prefix="where" suffixOverrides="and" >
+            <if test="id!=null">
+                id=#{id} and
+            </if>
+            <if test="lastName!=null and lastName!=&quot;&quot;">
+               last_name like #{lastName} and
+            </if>
+            <if test="email!=null and email.trim!=''">
+                email = #{email}
+            </if>
+            /*会自动转换*/
+            <if test="gender==0 or gender == 1">
+                gender = #{gender}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getEmpsByConditionChoose" resultType="com.yang.mybatis.bean.Employee">
+        select * from tbl_employee
+        <where>
+            <choose>
+                <when test="id!=null">
+                    id=#{id}
+                </when>
+                <when test="lastName!=null">
+                    last_name like #{lastName}
+                </when>
+                <otherwise>
+                    1=1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <update id="updateEmp">
+        update tbl_employee
+        <set>
+            <if test="lastName!=null">
+                last_name=#{lastName},
+            </if>
+            <if test="email!=null">
+                email=#{email},
+            </if>
+            <if test="gender!=null">
+                gender=#{gender}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getEmpsByConditionForeach" resultType="com.yang.mybatis.bean.Employee">
+        /*
+        collection:指定要遍历的集合，
+        list类型的参数会特殊处理封装在map中，map的key就叫list
+        item：将当前遍历出的元素赋值给指定变量
+        separator :每个元素之间的分隔符
+        open 和 close 表示左右闭合符号
+        */
+        select * from tbl_employee where id in
+        <foreach collection="ids" item="item_id" separator="," open="(" close=")">
+            #{item_id}
+        </foreach>
+     </select>
+</mapper>

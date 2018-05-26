@@ -1,10 +1,13 @@
 package com.yang.mybatis.test;
 
 
+import com.yang.mybatis.bean.Department;
 import com.yang.mybatis.bean.Employee;
+import com.yang.mybatis.config.mappers.DepartmentMapper;
 import com.yang.mybatis.config.mappers.EmployeeMapperAnnotation;
 import com.yang.mybatis.config.mappers.EmployeeMapperPlus;
 import com.yang.mybatis.dao.EmployeeMapper;
+import com.yang.mybatis.dao.EmployeeMapperDynamicSQL;
 import jdk.nashorn.internal.runtime.FindProperty;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -14,6 +17,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,13 +140,64 @@ public class MyBatisTest {
     public void test04(){
         SqlSession sqlSession = getSqlSessionFactory().openSession();
 
+
         try {
             EmployeeMapperPlus mapperPlus = sqlSession.getMapper(EmployeeMapperPlus.class);
 //            Employee employee = mapperPlus.getEmpById(1);
-            Employee employee = mapperPlus.getEmpAndDept(1);
+//            Employee employee = mapperPlus.getEmpAndDept(1);
+            Employee employee = mapperPlus.getEmpByIdStep(1);
             System.out.println(employee);
             System.out.println(employee.getDept());
         } finally {
+            sqlSession.close();
+        }
+    }
+
+
+    @Test
+    public void test06(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+
+        try {
+            DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
+            Department department = departmentMapper.getDepartmentByIdPlus(1);
+            System.out.println(department);
+            System.out.println(department.getEmps());
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testDynamicSql(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+
+        try {
+            EmployeeMapperDynamicSQL mapper = sqlSession.getMapper(EmployeeMapperDynamicSQL.class);
+            Employee employee = new Employee(1,"tom2","tom2@qq.com",null);
+
+//            List<Employee> emps = mapper.getEmpsByConditionTrim(employee);
+//            for (Employee e:emps){
+//                System.out.println(e);
+//            }
+
+            //测试choose
+//            List<Employee> emps = mapper.getEmpsByConditionChoose(employee);
+//            for (Employee emp:emps){
+//                System.out.println(emp);
+//            }
+
+
+            //测试set
+//            mapper.updateEmp(employee);
+
+
+            List<Employee> employees = mapper.getEmpsByConditionForeach(Arrays.asList(1,2,3,4));
+            for (Employee emp:employees){
+                System.out.println(emp);
+            }
+            sqlSession.commit();
+        }finally {
             sqlSession.close();
         }
     }

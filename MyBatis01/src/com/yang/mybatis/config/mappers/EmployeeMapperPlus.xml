@@ -50,8 +50,49 @@
         select e.id id,e.last_name last_name,e.gender gender,e.email email,e.d_id d_id,d.id did,d.dept_name dept_name
         from tbl_employee e,tbl_dept d where e.d_id  = d.id and e.id = #{id};
     </select>
+    
+
+    <!--使用association进行分步查询
+    1.先按照员工id查询员工信息
+    2.根据查询员工信息中的id值去部门表查出部门信息
+    3.部门设置到员工中-->
+    <resultMap id="MyEmpByStep" type="com.yang.mybatis.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="last_name" property="lastName"/>
+        <result column="email" property="email"/>
+        <result column="gender" property="gender"/>
+        <!--
+            select表明当前属性是调用select指定的方法查出的结果
+            column:指定将哪一列的值传递给这个方法
+        -->
+        <association property="dept" select="com.yang.mybatis.config.mappers.DepartmentMapper.getDeptById"
+                     column="d_id" fetchType="lazy">
+            <!--fetchType="lazy"表示使用懒加载，默认值-->
+        </association>
+        <!--指定判定的列,javaType对应的java类型-->
+        <!--<discriminator javaType="string" column="gender">
+            &lt;!&ndash;resultType指定封装结果类型&ndash;&gt;
+            <case value="0" resultType="com.yang.mybatis.bean.Employee">
+                <association property="dept" select="com.yang.mybatis.config.mappers.DepartmentMapper.getDeptById" column="d_id">
+                </association>
+            </case>
+            <case value="1" resultType="com.yang.mybatis.bean.Employee"></case>
+        </discriminator>-->
+    </resultMap>
+    <select id="getEmpByIdStep" resultMap="MyEmpByStep">
+          select * from tbl_employee where id=#{id}
+    </select>
 
 
-    <!--使用association进行分布查询-->
+    <!--
+        场景二:
+            查询部门的时候讲所有员工也查询出来,见DepartmentMapper
+    -->
+
+
+
+    <!--<discriminator javaType=""></discriminator>-->
+    <!--鉴别器：mybatis可以使用discriminator判断某列的值，然后根据某列的值改变封装的行为
+    -->
 
 </mapper>
