@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yang.mybatis.dao.EmployeeMapper">
+    <cache eviction="FIFO" flushInterval="60000" readOnly="true" size="1024">
+    </cache>
+    <!--
+        eviction：缓存的回收策略（FIFO，LRU，SOFT，WEAK)默认是LRU
+        flushInterval 缓存刷新间隔，缓存多长时间清空一次，毫秒为单位，默认不清空
+        readOnly:是否只读，mybatis认为所有从缓存中获取数据的操作只读，不会修改数据，为了加快速度，mybatis会直接将缓存中的引用交给用户
+        size:表示缓存中课缓存多少元素
+        type:指定缓存名
+    -->
     <!--
         namespace:命名空间,若想将接口和配置文件进行绑定，需要将namespace指定为接口的全类名
         id:唯一标识,绑定接口后可以用方法名绑定sql语句

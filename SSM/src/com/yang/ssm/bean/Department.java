@@ -1,4 +1,4 @@
-package com.yang.mybatis.bean;
+package com.yang.ssm.bean;
 
 import java.io.Serializable;
 import java.util.List;

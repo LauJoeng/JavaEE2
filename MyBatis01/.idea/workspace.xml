@@ -29,20 +29,8 @@
       <file leaf-file-name="MyBatisTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/test/MyBatisTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="233" column="91" selection-start-line="233" selection-start-column="91" selection-end-line="233" selection-end-column="91" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EmployeeMapperAnnotation.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperAnnotation.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+            <state relative-caret-position="214">
+              <caret line="204" column="40" lean-forward="true" selection-start-line="204" selection-start-column="40" selection-end-line="204" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -55,15 +43,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="186">
               <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EmployeeMapperPlus.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperPlus.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -83,9 +62,10 @@
       <file leaf-file-name="Employee.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/bean/Employee.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-465">
-              <caret line="12" column="74" selection-start-line="12" selection-start-column="74" selection-end-line="12" selection-end-column="74" />
+            <state relative-caret-position="124">
+              <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="e#278#279#0" expanded="true" />
                 <element signature="e#305#306#0" expanded="true" />
                 <element signature="e#349#350#0" expanded="true" />
@@ -98,9 +78,11 @@
       <file leaf-file-name="Department.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/bean/Department.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+            <state relative-caret-position="62">
+              <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
               <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#235#236#0" expanded="true" />
                 <element signature="e#263#264#0" expanded="true" />
                 <element signature="e#204#205#0" expanded="true" />
                 <element signature="e#231#232#0" expanded="true" />
@@ -115,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperDynamicSQL.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1025">
-              <caret line="150" column="10" lean-forward="true" selection-start-line="150" selection-start-column="10" selection-end-line="150" selection-end-column="10" />
+              <caret line="150" column="10" selection-start-line="150" selection-start-column="10" selection-end-line="150" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -129,11 +111,29 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="EmployeeMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-806">
+              <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mybatis-config.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mybatis-config.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="EmployeeMapper.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/dao/EmployeeMapper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="365">
-              <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+              <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -162,18 +162,18 @@
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/dbconfig2.properties" />
         <option value="$PROJECT_DIR$/notes.md" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/dao/EmployeeMapper.java" />
-        <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapper.xml" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperPlus.java" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/DepartmentMapper.java" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/Department.xml" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/DepartmentMapper.xml" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperPlus.xml" />
-        <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mybatis-config.xml" />
-        <option value="$PROJECT_DIR$/src/com/yang/mybatis/bean/Employee.java" />
-        <option value="$PROJECT_DIR$/src/com/yang/mybatis/bean/Department.java" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/dbconfig.properties" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/dao/EmployeeMapperDynamicSQL.java" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperDynamicSQL.xml" />
+        <option value="$PROJECT_DIR$/src/com/yang/mybatis/bean/Department.java" />
+        <option value="$PROJECT_DIR$/src/com/yang/mybatis/bean/Employee.java" />
+        <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mybatis-config.xml" />
+        <option value="$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapper.xml" />
         <option value="$PROJECT_DIR$/src/com/yang/mybatis/test/MyBatisTest.java" />
       </list>
     </option>
@@ -245,13 +245,6 @@
             <path>
               <item name="MyBatis01" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyBatis01" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="mybatis" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyBatis01" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyBatis01" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -315,32 +308,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.MyBatisTest.testFirstLevelCache">
+  <component name="RunManager" selected="JUnit.MyBatisTest.testSecondLevelCache">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-    </configuration>
-    <configuration name="MyBatisTest.test04" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="MyBatis01" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.yang.mybatis.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.yang.mybatis.test" />
-      <option name="MAIN_CLASS_NAME" value="com.yang.mybatis.test.MyBatisTest" />
-      <option name="METHOD_NAME" value="test04" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
     </configuration>
     <configuration name="MyBatisTest.test06" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MyBatis01" />
@@ -434,6 +404,29 @@
       </option>
       <patterns />
     </configuration>
+    <configuration name="MyBatisTest.testSecondLevelCache" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MyBatis01" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yang.mybatis.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.yang.mybatis.test" />
+      <option name="MAIN_CLASS_NAME" value="com.yang.mybatis.test.MyBatisTest" />
+      <option name="METHOD_NAME" value="testSecondLevelCache" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -473,19 +466,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="JUnit.MyBatisTest.test04" />
       <item itemvalue="JUnit.MyBatisTest.test06" />
       <item itemvalue="JUnit.MyBatisTest.testDynamicSql" />
       <item itemvalue="JUnit.MyBatisTest.testBatchSave" />
       <item itemvalue="JUnit.MyBatisTest.testFirstLevelCache" />
+      <item itemvalue="JUnit.MyBatisTest.testSecondLevelCache" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MyBatisTest.testSecondLevelCache" />
         <item itemvalue="JUnit.MyBatisTest.testFirstLevelCache" />
         <item itemvalue="JUnit.MyBatisTest.testBatchSave" />
         <item itemvalue="JUnit.MyBatisTest.testDynamicSql" />
         <item itemvalue="JUnit.MyBatisTest.test06" />
-        <item itemvalue="JUnit.MyBatisTest.test04" />
       </list>
     </recent_temporary>
   </component>
@@ -506,44 +499,44 @@
       <workItem from="1526697170262" duration="4914000" />
       <workItem from="1527063633828" duration="3417000" />
       <workItem from="1527296751066" duration="3678000" />
-      <workItem from="1527302041054" duration="11872000" />
+      <workItem from="1527302041054" duration="16572000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MyBatisTest_testDynamicSql - 2018.05.26 at 13h 23m 49s.xml">
-      <configuration name="MyBatisTest.testDynamicSql" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBatisTest_testDynamicSql - 2018.05.26 at 13h 24m 53s.xml">
-      <configuration name="MyBatisTest.testDynamicSql" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBatisTest_testDynamicSql - 2018.05.26 at 13h 24m 57s.xml">
-      <configuration name="MyBatisTest.testDynamicSql" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBatisTest_testDynamicSql - 2018.05.26 at 15h 26m 06s.xml">
-      <configuration name="MyBatisTest.testDynamicSql" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBatisTest_testDynamicSql - 2018.05.26 at 15h 27m 49s.xml">
-      <configuration name="MyBatisTest.testDynamicSql" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBatisTest_testDynamicSql - 2018.05.26 at 15h 33m 19s.xml">
-      <configuration name="MyBatisTest.testDynamicSql" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBatisTest_testBatchSave - 2018.05.26 at 15h 43m 20s.xml">
-      <configuration name="MyBatisTest.testBatchSave" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="MyBatisTest_testBatchSave - 2018.05.26 at 15h 44m 35s.xml">
-      <configuration name="MyBatisTest.testBatchSave" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="MyBatisTest_testBatchSave - 2018.05.26 at 15h 46m 31s.xml">
       <configuration name="MyBatisTest.testBatchSave" configurationId="JUnit" />
     </history-entry>
     <history-entry file="MyBatisTest_testFirstLevelCache - 2018.05.26 at 16h 34m 13s.xml">
       <configuration name="MyBatisTest.testFirstLevelCache" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="MyBatisTest_testFirstLevelCache - 2018.05.26 at 16h 34m 52s.xml">
+      <configuration name="MyBatisTest.testFirstLevelCache" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBatisTest_testSecondLevelCache - 2018.05.26 at 17h 02m 19s.xml">
+      <configuration name="MyBatisTest.testSecondLevelCache" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBatisTest_testSecondLevelCache - 2018.05.26 at 17h 03m 08s.xml">
+      <configuration name="MyBatisTest.testSecondLevelCache" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBatisTest_testSecondLevelCache - 2018.05.26 at 17h 04m 28s.xml">
+      <configuration name="MyBatisTest.testSecondLevelCache" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBatisTest_testSecondLevelCache - 2018.05.26 at 17h 05m 58s.xml">
+      <configuration name="MyBatisTest.testSecondLevelCache" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBatisTest_testSecondLevelCache - 2018.05.26 at 17h 06m 25s.xml">
+      <configuration name="MyBatisTest.testSecondLevelCache" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBatisTest_testSecondLevelCache - 2018.05.26 at 17h 07m 40s.xml">
+      <configuration name="MyBatisTest.testSecondLevelCache" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyBatisTest_testSecondLevelCache - 2018.05.26 at 17h 08m 29s.xml">
+      <configuration name="MyBatisTest.testSecondLevelCache" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43579000" />
+    <option name="totallyTimeSpent" value="48279000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -560,11 +553,11 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4051447" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.0" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22844176" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22844176" />
       <window_info id="Web" order="2" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" weight="0.100605145" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -865,13 +858,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mybatis-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="77" column="14" lean-forward="true" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/web/WEB-INF/lib/mybatis-3.4.6.jar!/org/apache/ibatis/binding/MapperMethod.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
@@ -890,13 +876,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="434">
           <caret line="14" column="48" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1519">
-          <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -930,31 +909,27 @@
     <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/dao/EmployeeMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
-          <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/bean/Employee.java">
+    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperDynamicSQL.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-465">
-          <caret line="12" column="74" selection-start-line="12" selection-start-column="74" selection-end-line="12" selection-end-column="74" />
-          <folding>
-            <element signature="e#278#279#0" expanded="true" />
-            <element signature="e#305#306#0" expanded="true" />
-            <element signature="e#349#350#0" expanded="true" />
-            <element signature="e#381#382#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1025">
+          <caret line="150" column="10" selection-start-line="150" selection-start-column="10" selection-end-line="150" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/bean/Department.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+        <state relative-caret-position="62">
+          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
           <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#235#236#0" expanded="true" />
             <element signature="e#263#264#0" expanded="true" />
             <element signature="e#204#205#0" expanded="true" />
             <element signature="e#231#232#0" expanded="true" />
@@ -964,17 +939,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperPlus.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/bean/Employee.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/dbconfig.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
-          <caret line="1" column="65" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
+        <state relative-caret-position="124">
+          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#278#279#0" expanded="true" />
+            <element signature="e#305#306#0" expanded="true" />
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -988,17 +963,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperDynamicSQL.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/dbconfig.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1025">
-          <caret line="150" column="10" lean-forward="true" selection-start-line="150" selection-start-column="10" selection-end-line="150" selection-end-column="10" />
+        <state relative-caret-position="31">
+          <caret line="1" column="65" selection-start-line="1" selection-start-column="65" selection-end-line="1" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapperPlus.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mybatis-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="19" column="61" selection-start-line="19" selection-start-column="61" selection-end-line="19" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/config/mappers/EmployeeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-806">
+          <caret line="4" column="12" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/yang/mybatis/test/MyBatisTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="233" column="91" selection-start-line="233" selection-start-column="91" selection-end-line="233" selection-end-column="91" />
+        <state relative-caret-position="214">
+          <caret line="204" column="40" lean-forward="true" selection-start-line="204" selection-start-column="40" selection-end-line="204" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -220,7 +220,33 @@ public class MyBatisTest {
     /**
      * 一级缓存(本地缓存)sqlSession级别的缓存，默认开启的无法关闭
      *          与数据库一次会话期间查询到的数据库都会放在本地缓存中，以后如果需要获取相同的数据，直接从缓存中拿，不需要再去数据库
-     * 二级缓存(全局缓存)
+     *
+     *          一级缓存失效的情况(没有使用到以及缓存的情况就还需要向数据库查询数据)
+     *          1.sqlSession不同
+     *          2.sqlSession相同但查询条件不同
+     *          3.sqlSession相同，但两次查询之间执行了增删改
+     *          4.sqlSession相同，但两次查询之间进行了手动清空缓存，sqlSession.clearCache()方法
+     *
+     * 二级缓存(全局缓存)基于namespace级别的缓存，一个namespace可以对应一个二级缓存
+     *      工作机制:
+     *      1.一个会话，查询一条数据，这个数据就会放在当前会话的以及缓存中
+     *      2.如果关闭会话(注意必须等会话关闭才会存入二级缓存)，一级缓存的数据会被保存到二级缓存中，新的会话查询信息就可以参照二级缓存中的数据
+     *      3.sqlSession===EmployeeMapper==》Employee
+     *                      DepartmentMapper==》Department
+     *       不同的namespace查出的数据放在自己对应的缓存中
+     *
+     *       使用:
+     *       1.开启全局二级缓存
+     *       2.去mapper.xml中配置使用二级缓存
+     *       3.把POJO视线序列化接口
+     *
+     * 和缓存有关的设置/属性
+     *          1.cacheEnabled设置为false只关闭了二级缓存
+     *          2.每个select标签都有useCache选项，在这个里可以关闭二级缓存
+     *          3.每个增删改标签的flushCache="true",增删改执行完后就会清空缓存，包括二级缓存
+     *          4.查询标签里也有flushCache值默认为false
+     *          5.sqlSession.clearCache()方法只会清空一级缓存，二级缓存不受影响
+     *          6.localCacheScope：本地缓存作用域，(一级缓存session，当前会话所有数据都会保存在会话中)
      */
 
     @Test
@@ -236,6 +262,25 @@ public class MyBatisTest {
             System.out.println(emp01);
         }finally {
             sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSecondLevelCache(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+        SqlSession sqlSession1 = getSqlSessionFactory().openSession();
+        try {
+           EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+           EmployeeMapper mapper1 = sqlSession1.getMapper(EmployeeMapper.class);
+
+           Employee emp01 = mapper.getEmployeeById(1);
+           System.out.println(emp01);
+           sqlSession.close();
+           Employee emp02 = mapper1.getEmployeeById(1);
+           System.out.println(emp02);
+           sqlSession1.close();
+        }finally {
+
         }
     }
 

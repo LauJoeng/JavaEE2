@@ -1,6 +1,4 @@
-package com.yang.mybatis.bean;
-
-import org.apache.ibatis.type.Alias;
+package com.yang.ssm.bean;
 
 import java.io.Serializable;
 

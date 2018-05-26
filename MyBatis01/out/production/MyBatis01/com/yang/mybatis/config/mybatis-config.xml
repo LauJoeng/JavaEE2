@@ -17,6 +17,7 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>  <!-- 启用驼峰命名;-->
        <!--<setting name="lazyLoadingEnabled" value="true"/>&lt;!&ndash;懒加载模式，默认开启&ndash;&gt;
        <setting name="aggressivelazyloading" value="false"/>-->
+       <setting name="cacheEnabled" value="true"/><!--二级缓存-->
     </settings>
 
     <!--
