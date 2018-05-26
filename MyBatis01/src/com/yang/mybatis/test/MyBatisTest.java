@@ -17,10 +17,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 1.SqlSession代表和数据库的一次会话，使用完必须关闭
@@ -197,6 +194,46 @@ public class MyBatisTest {
                 System.out.println(emp);
             }
             sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+
+    @Test
+    public void testBatchSave(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+
+        try {
+            EmployeeMapperDynamicSQL mapper = sqlSession.getMapper(EmployeeMapperDynamicSQL.class);
+            List<Employee>emps = new ArrayList<>();
+            emps.add(new Employee(null,"Smith","smith@gmail.com","1",new Department(1)));
+            emps.add(new Employee(null,"Marry","marry@gmail.com","0",new Department(1)));
+            mapper.addEmps(emps);
+            sqlSession.commit();
+        }finally {
+            sqlSession.close();
+        }
+    }
+
+
+    /**
+     * 一级缓存(本地缓存)sqlSession级别的缓存，默认开启的无法关闭
+     *          与数据库一次会话期间查询到的数据库都会放在本地缓存中，以后如果需要获取相同的数据，直接从缓存中拿，不需要再去数据库
+     * 二级缓存(全局缓存)
+     */
+
+    @Test
+    public void testFirstLevelCache(){
+        SqlSession sqlSession = getSqlSessionFactory().openSession();
+
+        try {
+            EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+            Employee emp01 = mapper.getEmployeeById(1);
+            System.out.println(emp01);
+            System.out.println("___________________________________________________________");
+            mapper.getEmployeeById(1);
+            System.out.println(emp01);
         }finally {
             sqlSession.close();
         }

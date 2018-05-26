@@ -77,7 +77,7 @@
         where id = #{id}
     </update>
 
-    <select id="getEmpsByConditionForeach" resultType="com.yang.mybatis.bean.Employee">
+    <select id="getEmpsByConditionForeach" resultType="com.yang.mybatis.bean.Employee" parameterType="list">
         /*
         collection:指定要遍历的集合，
         list类型的参数会特殊处理封装在map中，map的key就叫list
@@ -86,8 +86,67 @@
         open 和 close 表示左右闭合符号
         */
         select * from tbl_employee where id in
-        <foreach collection="ids" item="item_id" separator="," open="(" close=")">
+        <foreach collection="list" item="item_id" separator="," open="(" close=")">
             #{item_id}
         </foreach>
      </select>
+    
+    
+    <!--Mysql下批量保存，可以foreach遍历-->
+    <insert id="addEmps">
+        insert into tbl_employee(last_name, email,gender,d_id)
+                values 
+                <foreach collection="emps" separator="," item="emp">
+                    (#{emp.lastName},#{emp.email},#{emp.gender},#{emp.dept.id})
+                </foreach>
+    </insert>
+
+    <!--Oracle数据库批量保存不支持values语法
+        Oracle支持以pl/sql方式执行多条insert语句
+        begin
+            insert into ..
+            insert into ..
+        end;
+    -->
+    <!--<insert id="addEmps" databaseId="oracle">
+        begin
+          <foreach collection="emps" item="emp">
+              insert into employees(employee_id,last_name,email)
+              values(employee_seq.nextval,#{emp.lastName},#{emp.email});
+          </foreach>
+        end
+    </insert>-->
+
+    <!--两个内置参数
+        不只是传递过来的参数可以被用来判断，取值
+        mybatis默认还有两个内置参数
+        _parameter:代表整个参数
+            单个参数：_parameter就是这个参数
+            多个参数：参数会被封装为一个map:就是代表这个map
+
+        如_databaseId：如果配置了databaseProvider标签就代表当前数据库的别名
+    -->
+    <select id="getEmpsTestInnerParameter" resultType="com.yang.mybatis.bean.Employee">
+        /*bind可以将OGNL表达式绑定到一个变量中，方便后来引用这个变量的值*/
+          <bind name="_lastName" value="'%'+lastName+'%'"/>
+          <if test="_databaseId=='mysql'">
+              select * from tbl_employee;
+          </if>
+          <if test="_databaseId=='oracle'">
+              select * from employees
+          </if>
+    </select>
+
+    <!--抽取可重用的sql片段，方便后面使用-->
+    <!--
+        <insert id="id">
+            insert into employees(
+                <include refid="insertColumn"/>
+            )
+            ...
+        </insert>
+    -->
+    <sql id="insertColumn">
+        employee_id,last_name,email
+    </sql>
 </mapper>
