@@ -9,4 +9,8 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
+    
+    <listener>
+        <listener-class>org.springframework</listener-class>
+    </listener>
 </web-app>
