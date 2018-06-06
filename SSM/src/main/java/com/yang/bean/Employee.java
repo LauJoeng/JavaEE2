@@ -11,6 +11,17 @@ public class Employee {
 
     private Integer dId;
 
+    //查询员工的同时部门信息也是查询好的
+    private Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public Integer getEmpId() {
         return empId;
     }
