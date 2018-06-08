@@ -15,7 +15,7 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="d_id" jdbcType="INTEGER" property="dId" />
     <association property="department" javaType="com.yang.bean.Department">
-        <id column="dept_id" property="deptId"/>
+        <id column="dept_id" property="id"/>
         <result column="dept_name" property="deptName"/>
     </association>
   </resultMap>
