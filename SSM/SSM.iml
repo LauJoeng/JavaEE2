@@ -7,6 +7,7 @@
           <file>file://$MODULE_DIR$/src/resources/applicationContext.xml</file>
           <file>file://$MODULE_DIR$/web/WEB-INF/dispatcherServlet-servlet.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/resources/dispatcherServlet-servlet.xml</file>
         </fileset>
       </configuration>
     </facet>
@@ -16,8 +17,11 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+          <root url="file://$MODULE_DIR$/web" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>
