@@ -24,7 +24,6 @@ public class EmployeeController {
     //查询员工数据(分页查询)
     @RequestMapping("/emps")
     public String getEmps(@RequestParam(value = "pn",defaultValue = "1")Integer pageNum,Model model){
-        //这不是一个分页查询
         //引入PageHelper分页插件
         //在查询之前只需要调用,传入页码，以及每页大小
         PageHelper.startPage(pageNum,5);
