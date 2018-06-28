@@ -12,6 +12,8 @@
     </typeAliases>
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--调整翻页查询合理-->
+            <property name="reasonable" value="true"/>
         </plugin>
     </plugins>
     
