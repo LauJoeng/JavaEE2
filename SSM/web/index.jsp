@@ -30,6 +30,65 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
+
+<%--员工添加的弹出模态框--%>
+<div id="empAddModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">员工添加</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="empName_add_input" class="col-sm-2 control-label">empName</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="empName" class="form-control" id="empName_add_input" placeholder="empName">
+                            <span  class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_add_input" class="col-sm-2 control-label">email</label>
+                        <div class="col-sm-10">
+                            <input type="email" name="email" class="form-control" id="email_add_input" placeholder="email@gmail.com">
+                            <span  class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="gender" id="gender1_add_input" value="M" checked="checked">
+                                    男
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="gender" id="gender2_add_input" value="F">
+                                    女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept_add_select" class="col-sm-2 control-label">deptName</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="dId" id="dept_add_select">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="emp_save_btn">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div class="container">
     <%--标题--%>
     <div class="row">
@@ -40,7 +99,7 @@
     <%--按钮--%>
     <div class="row">
         <div class="col-md-4 col-md-offset-10">
-            <button class="btn btn-primary">新增</button>
+            <button class="btn btn-primary" id="emp_add_modal_btn">新增</button>
             <button class="btn btn-danger">删除</button>
         </div>
     </div>
@@ -76,6 +135,7 @@
     </div>
 </div>
 <script type="text/javascript">
+    var totalRecourd;
     //页面加载完成后，直接发ajax请求，拿到分页信息
     $(function () {
        to_page(1);
@@ -130,6 +190,7 @@
         $("#page_info_area").empty();
         $("#page_info_area").append("当前"+result.extend.pageInfo.pageNum+"页," +
             "总共"+result.extend.pageInfo.pages+" 页,总共"+result.extend.pageInfo.total+"记录");
+        totalRecourd = result.extend.pageInfo.total;
     }
     //解析显示分页条,点击分页要能响应动作
     function build_page_nav(result) {
@@ -180,6 +241,122 @@
         var navEle = $("<nav></nav>").append(ul);
         navEle.appendTo("#page_nav_area");
     }
+
+    //清空表单样式及内容
+    function reset_form(ele){
+        $(ele)[0].reset();
+        //清空表单样式
+        $(ele).find("*").removeClass("has-error has-success");
+        $(ele).find(".help-block").text("");
+    }
+
+    //点击新增按钮弹出模态框
+    $("#emp_add_modal_btn").click(function () {
+        reset_form("#empAddModel form");
+        //发送ajax请求，查出部门信息，显示则下拉列表中
+        getDepts();
+        $('#empAddModel').modal({
+            backdrop:"static"
+        });
+    });
+
+    //查出所有部门信息
+    function getDepts() {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/depts",
+            type:"GET",
+            success:function (result) {
+                console.log(result);
+                $.each(result.extend.depts,function () {
+                    var optionEle = $("<option></option>").append(this.deptName).attr("value",this.id);
+                    optionEle.appendTo("#empAddModel select");
+                })
+            }
+        });
+    }
+
+    function validate_add_form(){
+        //1.拿到要校验的数据，是用正则表达式
+        var empName = $("#empName_add_input").val();
+        var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5}$)/;
+        if(!regName.test(empName)){
+            // alert("用户名为2-5位中文或者6-16位英文数字的组合");
+            show_validate_msg("#empName_add_input","error","用户名为2-5位中文或者6-16位英文数字的组合");
+            return false;
+        }else{
+            show_validate_msg("#empName_add_input","success","");
+        }
+        var email = $("#email_add_input").val();
+        var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if(!regEmail.test(email)){
+            // alert("邮箱格式不正确");
+            //每次显示数据之前都应该清空之前的样式
+            show_validate_msg("#email_add_input","error","邮箱格式不正确");
+            return false;
+        }else{
+            show_validate_msg("#email_add_input","success","");
+        }
+        return true;
+    }
+
+    function show_validate_msg(ele,status,msg){
+        //清除当前元素校验状态
+        $(ele).parent().removeClass("has-success has-error");
+        $(ele).next("span").text("");
+        if("success" === status){
+            $(ele).parent().addClass("has-success");
+            $(ele).next("span").text(msg);
+        }else if("error" === status){
+            $(ele).parent().addClass("has-error");
+            $(ele).next("span").text(msg);
+        }
+
+    }
+
+    $("#empName_add_input").change(function () {
+        //发送ajax请求校验用户名是否可用
+        var empName = this.value;
+        $.ajax({
+            url:"${pageContext.request.contextPath}/checkuser",
+            data:"empName="+empName,
+            type:"POST",
+            success:function (result) {
+                if(result.code === 100){
+                    show_validate_msg("#empName_add_input","success","用户名可用");
+                    $("#emp_save_btn").attr("ajax-va","success");
+                }else{
+                    show_validate_msg("#empName_add_input","error",result.extend.val_msg);
+                    $("#emp_save_btn").attr("ajax-va","error");
+                }
+            }
+        });
+    });
+
+    //点击保存，保存员工
+    $("#emp_save_btn").click(function () {
+        //先对提交给服务器的数据进行校验
+        if(!validate_add_form()){
+            return false;
+        }
+        //先判断之前的ajax校验是否成功
+        if($(this).attr("ajax-va") === "error"){
+            return false;
+        }
+        //将模态框填写的表单数据提交给服务器进行保存
+        $.ajax({
+            url:"${pageContext.request.contextPath}/emp",
+            type:"POST",
+            data:$("#empAddModel form").serialize(),
+            success:function (result) {
+                alert(result.msg);
+                //保存成功后要关闭模态框并跳转到最后一页查看新添加的数据
+                $("#empAddModel").modal('hide');
+                to_page(totalRecourd);/*pageHelper插件会自动调整成合理的数组，跳转到最后一页*/
+            }
+        });
+    });
+    /*此处form的serialize方法时jQuery提供的快速获取表单并处理成 “key=value”字符串形式*/
+    
 </script>
 </body>
 </html>
