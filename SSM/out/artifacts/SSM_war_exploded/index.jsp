@@ -30,6 +30,63 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
+<%--员工修改模态框--%>
+<div id="empUpdateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" >员工修改</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="empName_update_input" class="col-sm-2 control-label">empName</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="empName" class="form-control" id="empName_update_input" placeholder="empName">
+                            <span  class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email_update_input" class="col-sm-2 control-label">email</label>
+                        <div class="col-sm-10">
+                            <input type="email" name="email" class="form-control" id="email_update_input" placeholder="email@gmail.com">
+                            <span  class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="gender" id="gender1_update_input" value="M" checked="checked">
+                                    男
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="gender" id="gender2_update_input" value="F">
+                                    女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept_add_select" class="col-sm-2 control-label">deptName</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="dId" id="dept_update_select">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="emp_update_btn">更新</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <%--员工添加的弹出模态框--%>
 <div id="empAddModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
@@ -118,7 +175,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
         </div>
@@ -171,9 +227,9 @@
             //         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
             //     编辑
             //     </button>
-            var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm")
+            var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
-            var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm")
+            var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
             var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
             $("<tr></tr>").append(empIdTd)
@@ -254,14 +310,16 @@
     $("#emp_add_modal_btn").click(function () {
         reset_form("#empAddModel form");
         //发送ajax请求，查出部门信息，显示则下拉列表中
-        getDepts();
+        getDepts("#empAddModel select");
         $('#empAddModel').modal({
             backdrop:"static"
         });
     });
 
     //查出所有部门信息
-    function getDepts() {
+    function getDepts(ele) {
+        //清空下拉列表的值
+        $(ele).empty();
         $.ajax({
             url:"${pageContext.request.contextPath}/depts",
             type:"GET",
@@ -269,7 +327,7 @@
                 console.log(result);
                 $.each(result.extend.depts,function () {
                     var optionEle = $("<option></option>").append(this.deptName).attr("value",this.id);
-                    optionEle.appendTo("#empAddModel select");
+                    optionEle.appendTo(ele);
                 })
             }
         });
@@ -348,14 +406,39 @@
             type:"POST",
             data:$("#empAddModel form").serialize(),
             success:function (result) {
-                alert(result.msg);
-                //保存成功后要关闭模态框并跳转到最后一页查看新添加的数据
-                $("#empAddModel").modal('hide');
-                to_page(totalRecourd);/*pageHelper插件会自动调整成合理的数组，跳转到最后一页*/
+                // alert(result.msg);
+                if(result.code === 100){
+                    //保存成功后要关闭模态框并跳转到最后一页查看新添加的数据
+                    $("#empAddModel").modal('hide');
+                    to_page(totalRecourd);/*pageHelper插件会自动调整成合理的数组，跳转到最后一页*/
+                }else{
+                    //显示失败信息
+                    console.log(result);
+                    if(undefined === result.extend.errorFields.email){
+                        //显示邮箱错误信息
+                        show_validate_msg("#email_add_input","error",result.extend.errorFields.email);
+                    }
+                    if(undefined === result.extend.errorFields.empName){
+                        show_validate_msg("#empName_add_input","error",result.extend.errorFields.empName)
+                    }
+                }
+
             }
         });
     });
     /*此处form的serialize方法时jQuery提供的快速获取表单并处理成 “key=value”字符串形式*/
+
+
+    $(document).on("click",".edit_btn",function () {
+        // alert("sss");
+        //查出员工信息，显示员工信息
+        getDepts("#empUpdateModal select");
+
+        //查出部门信息，显示部门列表
+        $("#empUpdateModal").modal({
+            backdrop:"static"
+        });
+    });
     
 </script>
 </body>
