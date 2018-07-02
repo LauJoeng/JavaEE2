@@ -25,4 +25,6 @@ public interface EmployeeMapper {
     int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
 
     int updateByExample(@Param("record") Employee record, @Param("example") EmployeeExample example);
+
+
 }

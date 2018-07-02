@@ -41,10 +41,9 @@
             <div class="modal-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="empName_update_input" class="col-sm-2 control-label">empName</label>
+                        <label for="empName_update_static" class="col-sm-2 control-label">empName</label>
                         <div class="col-sm-10">
-                            <input type="text" name="empName" class="form-control" id="empName_update_input" placeholder="empName">
-                            <span  class="help-block"></span>
+                            <p class="form-control-static" id="empName_update_static">email@example.com</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -72,7 +71,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="dept_add_select" class="col-sm-2 control-label">deptName</label>
+                        <label for="dept_update_select" class="col-sm-2 control-label">deptName</label>
                         <div class="col-sm-4">
                             <select class="form-control" name="dId" id="dept_update_select">
                             </select>
@@ -220,7 +219,7 @@
         $.each(emps,function (index,item) {
             var empIdTd = $("<td></td>").append(item.empId);
             var empNameId = $("<td></td>").append(item.empName);
-            var empGenderTd = $("<td></td>").append(item.gender === '男' ? "男" : "女");
+            var empGenderTd = $("<td></td>").append(item.gender === 'M' ? "男" : "女");
             var empEmailTd = $("<td></td>").append(item.email);
             var empDeptNameTd = $("<td></td>").append(item.department.deptName);
         // <button class="btn btn-primary btn-sm">
@@ -229,6 +228,8 @@
             //     </button>
             var editBtn = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
+            //为编辑按钮添加一个自定义的属性，方便取出员工id
+            editBtn.attr("edit-id",item.empId);
             var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
             var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
@@ -320,9 +321,11 @@
     function getDepts(ele) {
         //清空下拉列表的值
         $(ele).empty();
+
         $.ajax({
             url:"${pageContext.request.contextPath}/depts",
             type:"GET",
+            async:false,
             success:function (result) {
                 console.log(result);
                 $.each(result.extend.depts,function () {
@@ -429,14 +432,62 @@
     /*此处form的serialize方法时jQuery提供的快速获取表单并处理成 “key=value”字符串形式*/
 
 
+    //点击员工编辑按钮，修改员工信息
     $(document).on("click",".edit_btn",function () {
         // alert("sss");
-        //查出员工信息，显示员工信息
+        //查询部门信息
         getDepts("#empUpdateModal select");
-
-        //查出部门信息，显示部门列表
+        //查出员工信息，显示员工信息
+        getEmp($(this).attr("edit-id"));
+        //把员工id传递给模态框的更新按钮
+        $("#emp_update_btn").attr("edit-id",$(this).attr("edit-id"));
         $("#empUpdateModal").modal({
             backdrop:"static"
+        });
+    });
+
+    //获取员工信息
+    function getEmp(id){
+        $.ajax({
+            url:"${pageContext.request.contextPath}/emp/"+id,
+            type:"GET",
+            success:function (result) {
+                console.log(result);
+                var empData = result.extend.emp;
+                // console.log($("#empUpdateModal select").val()  +"::::"+empData.dId);
+
+                //此处有一个问题，前面的获取部门函数和这个获取员工的函数是异步执行，可能会发生部门还没加载出来员工已经加载了
+                //，所以在设置部门下拉框时会找不到下拉框,可以给获取部门这个方法的ajax请求async属性设置为false，即不让它
+                //异步执行，想到的一个解决办法
+                $("#empName_update_static").text(empData.empName);
+                $("#email_update_input").val(empData.email);
+                $("#empUpdateModal input[name=gender]").val([empData.gender]);
+                $("#empUpdateModal select").val([empData.dId]);
+            }
+        });
+    }
+
+    $("#emp_update_btn").click(function () {
+        // alert("sdd")
+        //验证邮箱是否合法
+        var email = $("#email_update_input").val();
+        var regEmail = /^([a-zA-Z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if(!regEmail.test(email)){
+            // alert("邮箱格式不正确");
+            //每次显示数据之前都应该清空之前的样式
+            show_validate_msg("#email_update_input","error","邮箱格式不正确");
+            return false;
+        }else{
+            show_validate_msg("#email_update_input","success","");
+        }
+        //发送ajax请求更新员工信息
+        $.ajax({
+            url:"${pageContext.request.contextPath}/emp/"+$(this).attr("edit-id"),
+            type:"PUT",
+            data:$("#empUpdateModal form").serialize(),
+            success:function (result) {
+                alert(result.msg);
+            }
         });
     });
     

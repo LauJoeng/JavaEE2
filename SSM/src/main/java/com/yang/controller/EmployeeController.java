@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -105,5 +102,39 @@ public class EmployeeController {
             return Msg.failed().add("val_msg","用户名不可用");
         }
     }
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg getEmp(@PathVariable("id") Integer id){
+        Employee employee  = employeeService.getEmp(id);
+        return Msg.success().add("emp",employee);
+    }
+
+    /**
+     * 如果直接发PU请求请求体中有数据，但employee对象封装不上
+     *
+     * 原因：
+     * Tomcat将请求体中的数据封装成一个map，
+     * request,getParameter("empName")就会从这个map中取值
+     * SpringMVC封装POJO对象时，会把POJO中每个属性，request.getParameter()来获取
+     *
+     * Ajax发送PUT请求，request获取不到封装的数据，Tomcat对PUT请求不会封装请求数据，只有POST请求才封装
+     * 员工更新
+     * @param employee
+     * @return
+     */
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.PUT)
+    @ResponseBody
+    public Msg saveEmp(Employee employee,@PathVariable("id") Integer id){
+        employee.setEmpId(id);
+        employeeService.updateEmp(employee);
+        return Msg.success();
+    }
+
 
 }
