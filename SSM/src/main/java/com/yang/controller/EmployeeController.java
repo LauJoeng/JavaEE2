@@ -124,6 +124,8 @@ public class EmployeeController {
      * SpringMVC封装POJO对象时，会把POJO中每个属性，request.getParameter()来获取
      *
      * Ajax发送PUT请求，request获取不到封装的数据，Tomcat对PUT请求不会封装请求数据，只有POST请求才封装
+     * 如果需要直接Ajax发送PUT之类的请求需要org.springframework.web.filter.HttpPutFormContentFilter这个过滤器
+     * 它的作用就是重新封装request，使request封装上数据
      * 员工更新
      * @param employee
      * @return

@@ -190,7 +190,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    var totalRecourd;
+    var totalRecourd,currentPage;
     //页面加载完成后，直接发ajax请求，拿到分页信息
     $(function () {
        to_page(1);
@@ -248,6 +248,7 @@
         $("#page_info_area").append("当前"+result.extend.pageInfo.pageNum+"页," +
             "总共"+result.extend.pageInfo.pages+" 页,总共"+result.extend.pageInfo.total+"记录");
         totalRecourd = result.extend.pageInfo.total;
+        currentPage = result.extend.pageInfo.pageNum
     }
     //解析显示分页条,点击分页要能响应动作
     function build_page_nav(result) {
@@ -486,7 +487,9 @@
             type:"PUT",
             data:$("#empUpdateModal form").serialize(),
             success:function (result) {
-                alert(result.msg);
+                //1关闭对话框
+                $("#empUpdateModal").modal("hide");
+                to_page(currentPage)
             }
         });
     });
