@@ -63,4 +63,22 @@ public class EmployeeService {
         criteria.andEmpIdEqualTo(employee.getEmpId());
         employeeMapper.updateByExampleSelective(employee,employeeExample);
     }
+
+    /**
+     * 员工删除
+     * @param id
+     */
+    public void deleteEmp(Integer id) {
+        EmployeeExample employeeExample = new EmployeeExample();
+        EmployeeExample.Criteria criteria = employeeExample.createCriteria();
+        criteria.andEmpIdEqualTo(id);
+        employeeMapper.deleteByExample(employeeExample);
+    }
+
+    public void deleteBatch(List<Integer> ids) {
+        EmployeeExample employeeExample = new EmployeeExample();
+        EmployeeExample.Criteria criteria = employeeExample.createCriteria();
+        criteria.andEmpIdIn(ids);
+        employeeMapper.deleteByExample(employeeExample);
+    }
 }

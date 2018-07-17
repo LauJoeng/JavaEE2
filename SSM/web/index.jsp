@@ -156,7 +156,7 @@
     <div class="row">
         <div class="col-md-4 col-md-offset-10">
             <button class="btn btn-primary" id="emp_add_modal_btn">新增</button>
-            <button class="btn btn-danger">删除</button>
+            <button class="btn btn-danger" id="emp_delete_all_btn">删除</button>
         </div>
     </div>
     <%--显示表格信息--%>
@@ -165,6 +165,9 @@
             <table class="table table-hover" id="emps_table">
                 <thead>
                     <tr>
+                        <th>
+                            <input type="checkbox" id="check_all"/>
+                        </th>
                         <th>#</th>
                         <th>empName</th>
                         <th>gender</th>
@@ -217,6 +220,7 @@
         $("#emps_table").empty();
         var emps = result.extend.pageInfo.list;
         $.each(emps,function (index,item) {
+            var checkBoxTd = $("<td><input type='checkbox' class='check_item'/></td>")
             var empIdTd = $("<td></td>").append(item.empId);
             var empNameId = $("<td></td>").append(item.empName);
             var empGenderTd = $("<td></td>").append(item.gender === 'M' ? "男" : "女");
@@ -232,14 +236,18 @@
             editBtn.attr("edit-id",item.empId);
             var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
+            //为删除按钮添加一个自定义的属性，来表示当前删除的员工id
+            delBtn.attr("del-id",item.empId);
             var btnTd = $("<td></td>").append(editBtn).append(" ").append(delBtn);
-            $("<tr></tr>").append(empIdTd)
+            $("<tr></tr>")
+                .append(checkBoxTd)
+                .append(empIdTd)
                 .append(empNameId)
                 .append(empGenderTd)
                 .append(empEmailTd)
                 .append(empDeptNameTd)
                 .append(btnTd)
-                .appendTo("#emps_table");
+                .appendTo("#emps_table:last");
         })
     }
     //解析显示分页信息
@@ -434,6 +442,7 @@
 
 
     //点击员工编辑按钮，修改员工信息
+    //.on方法可以让后面加载出来的组件也能监听到事件
     $(document).on("click",".edit_btn",function () {
         // alert("sss");
         //查询部门信息
@@ -445,6 +454,53 @@
         $("#empUpdateModal").modal({
             backdrop:"static"
         });
+    });
+
+    //点击当删除
+    $(document).on("click",".delete_btn",function () {
+        //弹出确认删除对话框
+        var empName = $(this).parents("tr").find("td:eq(2)").text();
+        var empId = $(this).attr("del-id");
+        if(confirm("确认删除【"+empName+"】吗?")){
+            //确认发送Ajax请求
+            $.ajax({
+                url:"${pageContext.request.contextPath}/emp/"+empId,
+                type:"DELETE",
+                success:function (result) {
+                    alert(result.msg);
+                    to_page(currentPage);
+                }
+            });
+        }
+        // alert($(this).parents("tr").find("td:eq(1)").text());
+    });
+
+    $(document).on("click",".check_item",function () {
+
+    });
+
+    //点击全部删除
+    $("#emp_delete_all_btn").click(function () {
+        var empNames = "";
+        var del_idstr="";
+        $.each($(".check_item:checked"),function () {
+            empNames += $(this).parents("tr").find("td:eq(2)").text()+",";
+            //组装装员工id字符串
+            del_idstr += $(this).parents("tr").find("td:eq(1)").text()+"-";
+        });
+        //去除empNames多余的逗号
+        empNames = empNames.substring(0,empNames.length-1);
+        del_idstr = del_idstr.substring(0,del_idstr.length-1);
+        if(confirm("确认删除【"+empNames+"】吗？")){
+            $.ajax({
+                url:"${pageContext.request.contextPath}/emp/"+del_idstr,
+                type:"DELETE",
+                success:function (result) {
+                    alert(result.msg);
+                    to_page(currentPage);
+                }
+            });
+        }
     });
 
     //获取员工信息
