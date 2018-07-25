@@ -1,0 +1,12 @@
+#person:
+#    lastName: zhangsan
+#    age: 19
+#    boss: false
+#    borth: 2018/07/25
+#    maps: {k1: v1,k2: v2}
+#    list:
+#      - lisi
+#      - zhaoliu
+#    dog:
+#      name: 小狗
+#      age: 12
