@@ -20,7 +20,7 @@ import java.util.Map;
  */
 //@PropertySource(value = "classpath:person.properties")
 @Component
-//@ConfigurationProperties(prefix = "person")
+@ConfigurationProperties(prefix = "person")
 public class Person {
 
     /**
@@ -28,11 +28,11 @@ public class Person {
      *      <property name="lastName" value="?> </property>
      * </bean>
      */
-    @Value("${person.lastName}")
+//    @Value("${person.lastName}")
     private String lastName;
-    @Value("#{10/2}")
+//    @Value("#{10/2}")
     private Integer age;
-    @Value("true")
+//    @Value("true")
     private Boolean boss;
     private Date borth;
     private Dog dog;

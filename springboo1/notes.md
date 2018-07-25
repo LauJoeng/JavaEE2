@@ -299,7 +299,7 @@ SpringBoot里面没有Spring配置文件，我们自己编写的配置文件也�
 
 SpringBoot推荐给容器添加组件的方式
 1. 配置类===Spring配置文件
-2. 是用
+2. 是用@Bean给容器添加组件
 
 ```
 /**
@@ -322,4 +322,146 @@ public class MyAppConfig {
 }
 ```
 
+###配置文件占位符
+
+随机数
+
+```
+random.value  ${random.int}、${random.long},${random.int(10)},
+
+```
+
+占位符获取之前的值，如果没有可以使用 : 指定默认值
+
+```
+person.lastName=张三${random.uuid}
+person.age=${random.int}
+person.borth=2018/07/25
+person.boss=false
+person.maps.k1=v1
+person.maps.k2=v2
+person.list=a,b,c
+person.dog.name=${person.lastName}_dog
+person.dog.age=21
+```
+
+##Profile
+
+### 多profile文件
+
+我们在主配置文件编写的时候，文件名可以是application-{profile}.properties/yml,默认使用application.properties
+
+###yml支持多文档块
+
+```
+---
+server:
+  port: 8081
+spring:
+  profiles:
+    active: dev
+---
+---
+server:
+  port: 8081
+spring:
+  profiles: prod
+---
+server:
+  port: 8082
+spring:
+  profiles: dev
+---
+```
+
+###激活指定profile
+
+1. 在配置文件中指定spring.profiles.active=dev
+2. 命令行方式，--spring.profiles.active=dev
+3. 虚拟机参数配置
+
+##配置文件加载位置
+
+springboot启动会扫描以下位置的application.properties或者application.yml文件作为springboot的默认配置文件
+
+- file:./config
+- file:./
+- classpath:/config/
+- classpath:/
+
+以上是按照优先级从高到低的顺序，所有的位置文件都会被加载，高优先级覆盖低优先级，也可以通过命令行参数spring.config.location来改变默认配置
+
+示例:java -jar spring-boot-02.0.0.1-SNAPSHOT.jar --server.port=8087
+
+##自动配置原理
+
+配置文件能写什么？怎么写
+
+[配置文件属性参照](https://docs.spring.io/spring-boot/docs/1.5.15.BUILD-SNAPSHOT/reference/htmlsingle/#common-application-properties)
+
+###自动配置原理
+
+- SpringBoot启动的时候加载主配置类，开启了自动配置功能@EnableAutoConfiguration
+- @EnableAutoConfiguration作用:
+ - 利用EnableAutConfigurationImportSelector给容器中导入了一些组件
+ - 可以查看selectImport方法内容
+ - List<String>configurations = getCandidateConfgurations(annotationMetadata,attributes);获取候选的配置
+ - 将类路径下META-INF/spring.factories里面所有的EnableAutoConfiguration的值加入到容器中
+
+每一个这样的的xxxAutoConfiguration类都是容器的一个组件，都加入到容器中，用它来做自动配置
+- 每一个自动配置类进行自动配置功能
+- 以**HttpEncodingAutoConfiguration（Http编码自动配置）**为例解释自动配置原理
+
+```
+@Configuration //表示这是一个配置类。类似以前编写配置文件一样，也可以给容器中添加组件
+@EnableConfigurationProperties({HttpEncodingProperties.class}) //启用指定ConfigurationProperties功能，将配置文件中对应的值和HttpEncodingProperties绑定起来
+@ConditionalOnWebApplication(
+    type = Type.SERVLET
+) //Spring底层@Conditional注解，根据不同条件，整个配置类里面的配置就会生效：判断当前应用是否是WEB应用
+@ConditionalOnClass({CharacterEncodingFilter.class}) //判断当前项目有没有这个类
+@ConditionalOnProperty(
+    prefix = "spring.http.encoding",
+    value = {"enabled"},
+    matchIfMissing = true
+) //判断配置文件是否存在某个配置 spring.http.encoding.enabled,如果存在，判断也成立
+public class HttpEncodingAutoConfiguration {
+```
+
+- 所有在配置文件中能配置的属性都是在xxxProperties类中封装的，配置文件可以配置什么就可以参照某个功能对应的属性类
+
+```
+ConfigurationProperties(
+    prefix = "spring.http.encoding"
+)
+public class HttpEncodingProperties {
+```
+
+自动配置类必须在一定的条件下才能生效，可以启用debug=true	来让控制台打印自动配置报告，可以很方便的知道哪些自动配置类生效
+
+##SLF4j使用
+
+- 如何在系统中使用SLF4j，开发中，日志记录方法的调用，不应该调用日志的实现类，而是调用日志抽象层里面的方法,系统应先导入slf4j和logback的jar
+
+```
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class HelloWorld {
+  public static void main(String[] args) {
+    Logger logger = LoggerFactory.getLogger(HelloWorld.class);
+    logger.info("Hello World");
+  }
+}
+```
+
+每一个日志的实现框架都有自己的配置文件，使用slf4j以后，配置文件还是做成日志实现框架的配置文件
+
+**如让系统中所有的日志都统一到slf4j？**
+
+1. 将系统中其他日志框架先排除出去
+2. 用中间包替换原有的日志框架
+3. 我们导入slf4j其他的实现
+4. 如果我们引入其他框架，一定要把这个框架的日志依赖去除
+
+**SpringBoot能自动适应匹配所有的日志，而且底层使用slf4j+logback的方式记录日志，引入其他框架的时候，只需要把这个框架依赖的日志框架排除掉**
 
