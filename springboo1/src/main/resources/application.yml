@@ -11,23 +11,23 @@
 #      name: 小狗
 #      age: 12
 
----
-server:
-  port: 8081
-spring:
-  profiles:
-    active: dev
----
----
-server:
-  port: 8081
-spring:
-  profiles: prod
----
-server:
-  port: 8082
-spring:
-  profiles: dev
----
+#---
+#server:
+#  port: 8081
+#spring:
+#  profiles:
+#    active: dev
+#---
+#---
+#server:
+#  port: 8081
+#spring:
+#  profiles: prod
+#---
+#server:
+#  port: 8082
+#spring:
+#  profiles: dev
+#---
 
 
