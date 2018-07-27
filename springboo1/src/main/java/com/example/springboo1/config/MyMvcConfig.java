@@ -1,11 +1,12 @@
 package com.example.springboo1.config;
 
+import com.example.springboo1.component.LoginHandlerInterceptor;
+import com.example.springboo1.component.MyLocaleResolver;
+import org.apache.tomcat.util.descriptor.LocalResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.*;
 
 //使用WebMvcConfigurerAdapter可以来扩展SpringMVC功能,webMvcConfigurationSupport会屏蔽SpringBoot对SpringMVC的配置
 @Configuration
@@ -17,18 +18,22 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/yang").setViewName("success");
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/index.html").setViewName("login");
+        registry.addViewController("/main.html").setViewName("dashboard");
+//        registry.addViewController("/main1.html").setViewName("login");
     }
 
-    //所有的WebMvcConfigurationSupport组件会一起起作用
-    //组件必须在容器注册才能被容器使用
-//    @Bean
-//    public WebMvcConfigurationSupport webMvcConfigurationSupport(){
-//        return new WebMvcConfigurationSupport(){
-//            @Override
-//            protected void addViewControllers(ViewControllerRegistry registry) {
-//                registry.addViewController("/").setViewName("index");
-//                registry.addViewController("/index.html").setViewName("index");
-//            }
-//        };
-//    }
+    @Bean
+    public LocaleResolver localeResolver(){
+        return new MyLocaleResolver();
+    }
+
+    //注册拦截器
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+//        super.addInterceptors(registry);
+        //静态资源
+        //SpringBoot已经做好了静态资源映射
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/index.html","/user/login","/");
+    }
 }
