@@ -34,6 +34,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
         //静态资源
         //SpringBoot已经做好了静态资源映射
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/index.html","/user/login","/");
+                .excludePathPatterns("/index.html","/user/login","/","/**/*.css","/**/*.js","/**/*.icon","/**/*.svg","/**/*.jpg");
+
     }
 }

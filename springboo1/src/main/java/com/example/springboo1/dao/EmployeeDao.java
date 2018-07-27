@@ -21,20 +21,24 @@ public class EmployeeDao {
     static {
         employees = new HashMap<>();
 
-        employees.put(1001,new Employee(1001,"E-AA","aa@qq.com","m",new Department(101,"D-AA")));
-        employees.put(1002,new Employee(1002,"E-BB","bb@qq.com","f",new Department(102,"D-BB")));
-        employees.put(1003,new Employee(1003,"E-CC","cc@qq.com","m",new Department(103,"D-CC")));
-        employees.put(1004,new Employee(1004,"E-DD","dd@qq.com","f",new Department(104,"D_DD")));
-        employees.put(1005,new Employee(1005,"E-EE","ee@qq.com","f",new Department(105,"D-EE")));
-        employees.put(1006,new Employee(1006,"E-FF","ff@qq.com","m",new Department(106,"D_FF")));
-        employees.put(1007,new Employee(1007,"E-GG","gg@qq.com","m",new Department(107,"D-GG")));
+        employees.put(1001,new Employee(1001,"E-AA","1","maa@qq.com",new Department(101,"D-AA")));
+        employees.put(1002,new Employee(1002,"E-BB","0","fbb@qq.com",new Department(102,"D-BB")));
+        employees.put(1003,new Employee(1003,"E-CC","1","mcc@qq.com",new Department(103,"D-CC")));
+        employees.put(1004,new Employee(1004,"E-DD","0","fdd@gmail.com",new Department(104,"D_DD")));
+        employees.put(1005,new Employee(1005,"E-EE","0","fee@qq.com",new Department(105,"D-EE")));
+        employees.put(1006,new Employee(1006,"E-FF","1","mff@qq.com",new Department(106,"D_FF")));
+        employees.put(1007,new Employee(1007,"E-GG","0","mgg@qq.com",new Department(107,"D-GG")));
     }
 
     public void save(Employee employee){
         if (employee.getEmpId() == null){
             employee.setEmpId(initId++);
         }
-        employee.setDepartment(departmentDao.getDepartment(employee.getDepartment().getId()));
+        if(employee.getDepartment()==null){
+            employee.setDepartment(departmentDao.getDepartment(employee.getdId()));
+        }else if(employee.getdId() == null){
+            employee.setdId(employee.getDepartment().getId());
+        }
         employees.put(employee.getEmpId(),employee);
     }
 

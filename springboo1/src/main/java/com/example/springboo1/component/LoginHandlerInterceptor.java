@@ -30,12 +30,10 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         }
         return true;
     }
-
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
 
     }
-
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
