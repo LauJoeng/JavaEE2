@@ -1,7 +1,9 @@
 package com.example.springboo1.controller;
 
+import com.example.springboo1.exception.UsernameNotExistException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
@@ -18,8 +20,12 @@ public class HelloController {
 //        return "index";
 //    }
 
+    @ResponseBody
     @RequestMapping("/hello")
-    public  String hello(){
+    public  String hello(@RequestParam("user") String user){
+        if(user.equals("aaa")){
+            throw new UsernameNotExistException();
+        }
         return "hello world";
     }
 

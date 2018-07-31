@@ -14,12 +14,12 @@ public class DepartmentDao {
     static {
         departments = new HashMap<>();
         departments.put(101,new Department(101,"D-AA"));
-        departments.put(102,new Department(101,"D-BB"));
-        departments.put(103,new Department(101,"D-CC"));
-        departments.put(104,new Department(101,"D-DD"));
-        departments.put(105,new Department(101,"D-EE"));
-        departments.put(106,new Department(101,"D-FF"));
-        departments.put(107,new Department(101,"D-GG"));
+        departments.put(102,new Department(102,"D-BB"));
+        departments.put(103,new Department(103,"D-CC"));
+        departments.put(104,new Department(104,"D-DD"));
+        departments.put(105,new Department(105,"D-EE"));
+        departments.put(106,new Department(106,"D-FF"));
+        departments.put(107,new Department(107,"D-GG"));
     }
 
     public Collection<Department>getDepartments(){
@@ -29,5 +29,7 @@ public class DepartmentDao {
     public Department getDepartment(Integer id){
         return departments.get(id);
     }
+
+
 
 }

@@ -7,9 +7,7 @@ import com.example.springboo1.dao.EmployeeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -54,10 +52,24 @@ public class EmployeeController {
     public String toEditPage(@PathVariable("id") Integer id,Model model){
         Employee employee = employeeDao.getEmployee(id);
         model.addAttribute("emp",employee);
-
         Collection<Department> departments = departmentDao.getDepartments();
         model.addAttribute("depts",departments);
         //重用添加页面，直接去往添加页面
         return "emp/add";
+    }
+
+    //需要提交员工id
+    @PutMapping("/emp")
+    public String updateEmp(Employee employee){
+        System.out.println(employee);
+        employeeDao.save(employee);
+        return "redirect:/emps";
+    }
+
+    @DeleteMapping("/emp/{id}")
+    public String deleteEmp(@PathVariable("id")Integer id){
+        employeeDao.delete(id);
+        System.out.println("执行删除");
+        return "redirect:/emps";
     }
 }

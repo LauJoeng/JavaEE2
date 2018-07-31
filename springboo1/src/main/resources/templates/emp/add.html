@@ -24,25 +24,33 @@
     <div class="row">
         <!--引入侧边栏-->
         <div th:replace="commons/bar::#sidebar(activeUri='emps')"></div>
-
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+
+            <!--需要区分是员工修改还是添加-->
             <form th:action="@{/emp}" method="post">
+                <!--修改是发送PUT请求-->
+                <!--1.SpringMVC中配置HiddenHttpMethodFilter
+                    2.页面创建一个POST表单
+                    3.创建一个input项，name="_method",值就是请求方式
+                -->
+                <input type="hidden" name="_method" value="PUT" th:if="${emp!=null}"/>
+                <input type="hidden" name="empId" th:if="${emp!=null}" th:value="${emp.empId}">
                 <div class="form-group">
                     <label >empName</label>
-                    <input name="empName" class="form-control" aria-describedby="emailHelp" placeholder="employee's name" th:value="${emp.empName}">
+                    <input name="empName" class="form-control" aria-describedby="emailHelp" placeholder="employee's name" th:value="${emp!=null} ? ${emp.empName}">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" th:value="${emp.email}">
+                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" th:value="${emp!=null} ? ${emp.email}">
                 </div>
                 <div class="form-group">
                     <label >Gender</label>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" value="m" th:checked="${emp.gender}=='m'">
+                        <input class="form-check-input" type="radio" name="gender" value="1" th:checked="${emp!=null} ? ${emp.gender}=='1'">
                         <label>男</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" value="f" th:checked="${emp.gender}=='f'">
+                        <input class="form-check-input" type="radio" name="gender" value="0" th:checked="${emp!=null} ? ${emp.gender}=='0'">
                         <label>女</label>
                     </div>
                 </div>
@@ -50,10 +58,10 @@
                     <label class="form-check-label">department</label>
                     <!--提交的是部门id-->
                     <select class="form-control" name="dId">
-                        <option th:selected="${dept.id == emp.dId}" th:value="${dept.id}" th:each="dept:${depts}" th:text="${dept.deptName}"></option>
+                        <option th:each="dept:${depts}" th:text="${dept.deptName}" th:selected="${emp!=null} ? ${dept.id == emp.department.id}" th:value="${dept.id}"></option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">添加</button>
+                <button type="submit" class="btn btn-primary" th:text="${emp!=null} ? '修改' :'添加'">添加</button>
             </form>
         </main>
     </div>

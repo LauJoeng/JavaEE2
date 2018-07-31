@@ -62,15 +62,20 @@
                             <td th:text="${emp.department.deptName}"></td>
                             <td>
                                 <a class="btn-sm btn-primary" th:href="@{/emp/}+${emp.empId}">编辑</a>
-                                <button class="btn-sm btn-danger">删除</button>
+                                <button th:attr="del_uri=@{/emp/}+${emp.empId}" class="btn-sm btn-danger deleteBtn">删除</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </main>
+        <form id="deleteBtnForm" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+        </form>
     </div>
 </div>
+
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -118,5 +123,11 @@
     });
 </script>
 
-
+<script type="text/javascript">
+    $(".deleteBtn").click(function () {
+        //删除员工
+        $("#deleteBtnForm").attr("action",$(this).attr("del_uri")).submit();
+        return false;
+    });
+</script>
 </body></html>
