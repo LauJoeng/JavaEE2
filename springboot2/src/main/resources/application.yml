@@ -1,0 +1,28 @@
+#schema指定建表sql脚本，会在启动应用之前执行
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.22.129:3306/mybatis?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    schema:
+          - classpath:sql/springboot.sql
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    #配置监控统计拦截的filters，去掉后监控界面sql无法统计，"wall"用于防火墙
+    filters: stat,wall,log4j2
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergSql=true;druid.stat.slowSqlMills=500
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*
