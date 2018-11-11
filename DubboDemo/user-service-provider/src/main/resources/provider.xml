@@ -20,4 +20,6 @@
 	
 	<!-- 服务的实现 -->
 	<bean id="userServiceImpl" class="com.yang.service.UserServiceImpl"></bean>
+	
+	<dubbo:monitor protocol="registry"></dubbo:monitor>
 </beans>
