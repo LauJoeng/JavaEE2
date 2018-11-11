@@ -1,6 +1,8 @@
 package com.yang.bean;
 
-public class UserAddress {
+import java.io.Serializable;
+
+public class UserAddress implements Serializable{
     private Integer id;
     private String userAddress;
     private String userId;
